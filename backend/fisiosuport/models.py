@@ -18,6 +18,7 @@ class User(Base):
     delete_at =  Column(DateTime(timezone=True), server_default=func.now())
     
     type_id = Column(Integer, ForeignKey("type.id"))
+    type = relationship("Types", back_populates="owner")
     
 # Vou criar os users e o types primeiro pra teste
     
