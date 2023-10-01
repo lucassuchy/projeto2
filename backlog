@@ -1,0 +1,10 @@
+Tela de inicio fisioterapeuta
+- Get Pacientes da semana where fisioterapeuta = logado and consulta nao realizada
+- Get exercicios
+- Get Pacientes recentes
+	- Nome
+	- Tratamento
+	- Contato
+		- Telefone
+		- e-mail
+
