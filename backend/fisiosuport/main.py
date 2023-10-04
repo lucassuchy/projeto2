@@ -59,33 +59,50 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     if not crud.get_user(db, user_id = user_id):
         raise HTTPException(status_code=404, detail="User não encontrado")
     crud.delete_user(db, user_id = user_id)
+    # Mudar a mensagem de retorno
     return {"Ok": True}
 
 
 # Types
-@app.get("/types/", response_model=list[schemas.Type])
+@app.get("/type/", response_model=list[schemas.Type])
 async def read_types(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    types = crud.get_type(db, skip=skip, limit=limit)
-    return types
+    type = crud.get_type(db, skip=skip, limit=limit)
+    return type
 
-@app.get("/types/{name}", response_model=schemas.Type)
+@app.get("/type/name/{name}", response_model=schemas.Type)
 async def get_type(name: str, db: Session = Depends(get_db)):
+    print('a')
     db_type = crud.get_type_by_name(db, name=name)
     if db_type is None:
         raise HTTPException(status_code=404, detail="Type não encontrado")
     return db_type
 
-@app.post("/types/", response_model=schemas.Type)
+@app.post("/type/", response_model=schemas.Type)
 async def create_type(type: schemas.TypeCreate, db: Session = Depends(get_db)):
     db_type = crud.get_type_by_name(db, name=type.name)
     if db_type:
-        raise HTTPException(status_code=400, detail="User Type já cadastrado")
+        raise HTTPException(status_code=400, detail="Type já cadastrado")
     return crud.create_user_type(db=db, type=type)
 
-
-@app.get("/types/{id}", response_model=schemas.Type)
+@app.get("/type/{id}", response_model=schemas.Type)
 async def get_type(id: int, db: Session = Depends(get_db)):
     db_type = crud.get_type_by_id(db, id=id)
     if db_type is None:
         raise HTTPException(status_code=404, detail="Type não encontrado")
     return db_type
+
+
+@app.patch("/type/{id}", response_model=schemas.Type)
+async def update_type(id:int ,type: schemas.TypeUpdate, db: Session = Depends(get_db)):
+    db_type = crud.get_type_by_id(db, id=id)
+    if db_type is None:
+        raise HTTPException(status_code=404, detail="Type não encontrado")
+    return crud.update_type(db=db, type=type, type_id=id)
+
+# O delete não funciona pela dependencia de fk entre as tabelas 
+# @app.delete("/type/{id}")
+# def delete_type(type_id: int, db: Session = Depends(get_db)):
+#     if not crud.get_type_by_id(db, id = id):
+#         raise HTTPException(status_code=404, detail="Type não encontrado")
+#     crud.delete_type(db, type_id = id)
+#     return {"Ok": True}

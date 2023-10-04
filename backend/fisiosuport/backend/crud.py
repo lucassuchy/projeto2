@@ -54,14 +54,25 @@ def get_type_by_id(db: Session, id: int):
 def get_type_by_name(db: Session, name: str):
     return db.query(models.Types).filter(models.Types.name == name).first()
 
-def delete_type(db: Session, type_id: str):
-    type = db.query(models.Types).filter(models.Types.id == type_id).first()
-    db.delete(type)
-    db.commit()
-    return {"ok":True}
+# def delete_type(db: Session, type_id: str):
+#     type = db.query(models.Types).filter(models.Types.id == type_id).first()
+#     db.delete(type)
+#     db.commit()
+#     return {"ok":True}
 
 def create_user_type(db: Session, type: schemas.TypeCreate):
     db_type = models.Types(**type.dict())
+    db.add(db_type)
+    db.commit()
+    db.refresh(db_type)
+    return db_type
+
+
+def update_type(db: Session, type_id: str, type: schemas.TypeUpdate):
+    db_type = db.query(models.Types).filter(models.Types.id == type_id).first()
+    type_data = type.dict(exclude_unset=True)
+    for key, value in type_data.items():
+        setattr(db_type, key, value)
     db.add(db_type)
     db.commit()
     db.refresh(db_type)

@@ -17,7 +17,6 @@ class User(Base):
     delete_at =  Column(DateTime(timezone=True))
     
     type_id = Column(Integer, ForeignKey("type.id"))
-    type = relationship("Types", back_populates="owner")
     
 # Vou criar os users e o types primeiro pra teste
     
@@ -29,7 +28,6 @@ class Types(Base):
 	created_At = Column(DateTime(timezone=True), server_default=func.now())
 	updated_at = Column(DateTime(timezone=True), server_default=func.now())
 	delete_at =  Column(DateTime(timezone=True))
-	owner = relationship("User", back_populates="type")
 
 # Tinha criado o tipo fisioterapeuta, mas com a tipagem do user não precisou
 class Especialidade(Base):

@@ -4,17 +4,19 @@ from sqlalchemy import  Column
 
 
 class TypeBase(BaseModel):
+    id: int
     name: str
-    name: str | None = None
 
 
 class TypeCreate(TypeBase):
     name: str
 
+class TypeUpdate(TypeBase):
+    id: Optional[int] = None
+    name: Optional[str] = None
 
 class Type(TypeBase):
     id: int
-    owner_id: int
     
     class Config:
         orm_mode = True
