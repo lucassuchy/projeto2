@@ -54,19 +54,12 @@ def get_type_by_id(db: Session, id: int):
 def get_type_by_name(db: Session, name: str):
     return db.query(models.Types).filter(models.Types.name == name).first()
 
-# def delete_type(db: Session, type_id: str):
-#     type = db.query(models.Types).filter(models.Types.id == type_id).first()
-#     db.delete(type)
-#     db.commit()
-#     return {"ok":True}
-
 def create_user_type(db: Session, type: schemas.TypeCreate):
     db_type = models.User(name=type.name)
     db.add(db_type)
     db.commit()
     db.refresh(db_type)
     return db_type
-
 
 def update_type(db: Session, type_id: str, type: schemas.TypeUpdate):
     db_type = db.query(models.Types).filter(models.Types.id == type_id).first()
@@ -77,3 +70,159 @@ def update_type(db: Session, type_id: str, type: schemas.TypeUpdate):
     db.commit()
     db.refresh(db_type)
     return db_type
+
+
+def get_specialty(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Specialty).offset(skip).limit(limit).all()
+
+
+def get_specialty_by_id(db: Session, id: int):
+    return db.query(models.Specialty).filter(models.Specialty.id == id).first()
+
+def get_specialty_by_name(db: Session, name: str):
+    return db.query(models.Specialty).filter(models.Specialty.name == name).first()
+
+def create_specialty(db: Session, specialty: schemas.SpecialtyCreate):
+    db_specialty = models.Specialty(name=specialty.name)
+    db.add(db_specialty)
+    db.commit()
+    db.refresh(db_specialty)
+    return db_specialty
+
+def update_specialty(db: Session, specialty_id: str, specialty: schemas.SpecialtyUpdate):
+    db_specialty = db.query(models.Specialty).filter(models.Specialty.id == specialty_id).first()
+    specialty_data = specialty.dict(exclude_unset=True)
+    for key, value in specialty_data.items():
+        setattr(db_specialty, key, value)
+    db.add(db_specialty)
+    db.commit()
+    db.refresh(db_specialty)
+    return db_specialty
+
+def delete_specialty(db: Session, specialty_id: str):
+    specialty = db.query(models.Specialty).filter(models.Specialty.id == specialty_id).first()
+    db.delete(specialty)
+    db.commit()
+    return {"ok":True}
+
+
+def get_patient_by_id(db: Session, id: int):
+    return db.query(models.Patient).filter(models.Patient.id == id).first()
+
+def get_patient_by_name(db: Session, name: str):
+    return db.query(models.Patient).filter(models.patient.name == name).first()
+
+
+# Adc validações
+def create_patient(db: Session, patient: schemas.PatientCreate):
+    db_patient = models.patient(name=patient.name)
+    db.add(db_patient)
+    db.commit()
+    db.refresh(db_patient)
+    return db_patient
+
+def update_patient(db: Session, patient_id: str, patient: schemas.PatientUpdate):
+    db_patient = db.query(models.Patient).filter(models.Patient.id == patient_id).first()
+    patient_data = patient.dict(exclude_unset=True)
+    for key, value in patient_data.items():
+        setattr(db_patient, key, value)
+    db.add(db_patient)
+    db.commit()
+    db.refresh(db_patient)
+    return db_patient
+
+def delete_patient(db: Session, patient_id: str):
+    patient = db.query(models.Patient).filter(models.patient.id == patient_id).first()
+    db.delete(patient)
+    db.commit()
+    return {"ok":True}
+
+
+# Treament
+def get_treatment_by_id(db: Session, id: int):
+    return db.query(models.treatment).filter(models.treatment.id == id).first()
+
+def get_treatment_by_name(db: Session, name: str):
+    return db.query(models.treatment).filter(models.treatment.name == name).first()
+
+def create_treatment(db: Session, treatment: schemas.TreatmentCreate):
+    db_treatment = models.Treatment(name=treatment.name)
+    db.add(db_treatment)
+    db.commit()
+    db.refresh(db_treatment)
+    return db_treatment
+
+def update_treatment(db: Session, treatment_id: str, treatment: schemas.TreatmentUpdate):
+    db_treatment = db.query(models.treatment).filter(models.treatment.id == treatment_id).first()
+    treatment_data = treatment.dict(exclude_unset=True)
+    for key, value in treatment_data.items():
+        setattr(db_treatment, key, value)
+    db.add(db_treatment)
+    db.commit()
+    db.refresh(db_treatment)
+    return db_treatment
+
+def delete_treatment(db: Session, treatment_id: str):
+    treatment = db.query(models.treatment).filter(models.treatment.id == treatment_id).first()
+    db.delete(treatment)
+    db.commit()
+    return {"ok":True}
+
+# physiotherapist
+def get_physiotherapist_by_id(db: Session, id: int):
+    return db.query(models.physiotherapist).filter(models.physiotherapist.id == id).first()
+
+def get_physiotherapist_by_name(db: Session, name: str):
+    return db.query(models.physiotherapist).filter(models.physiotherapist.name == name).first()
+
+def create_physiotherapist(db: Session, physiotherapist: schemas.PhysiotherapistCreate):
+    db_physiotherapist = models.physiotherapist(name=physiotherapist.name)
+    db.add(db_physiotherapist)
+    db.commit()
+    db.refresh(db_physiotherapist)
+    return db_physiotherapist
+
+def update_physiotherapist(db: Session, physiotherapist_id: str, physiotherapist: schemas.PhysiotherapistUpdate):
+    db_physiotherapist = db.query(models.physiotherapist).filter(models.physiotherapist.id == physiotherapist_id).first()
+    physiotherapist_data = physiotherapist.dict(exclude_unset=True)
+    for key, value in physiotherapist_data.items():
+        setattr(db_physiotherapist, key, value)
+    db.add(db_physiotherapist)
+    db.commit()
+    db.refresh(db_physiotherapist)
+    return db_physiotherapist
+
+def delete_physiotherapist(db: Session, physiotherapist_id: str):
+    physiotherapist = db.query(models.physiotherapist).filter(models.physiotherapist.id == physiotherapist_id).first()
+    db.delete(physiotherapist)
+    db.commit()
+    return {"ok":True}
+
+def get_patient_by_id(db: Session, id: int):
+    return db.query(models.patient).filter(models.patient.id == id).first()
+
+def get_patient_by_name(db: Session, name: str):
+    return db.query(models.patient).filter(models.patient.name == name).first()
+
+def create_patient(db: Session, patient: schemas.PatientCreate):
+    db_patient = models.patient(name=patient.name)
+    db.add(db_patient)
+    db.commit()
+    db.refresh(db_patient)
+    return db_patient
+
+def update_patient(db: Session, patient_id: str, patient: schemas.PatientUpdate):
+    db_patient = db.query(models.patient).filter(models.patient.id == patient_id).first()
+    patient_data = patient.dict(exclude_unset=True)
+    for key, value in patient_data.items():
+        setattr(db_patient, key, value)
+    db.add(db_patient)
+    db.commit()
+    db.refresh(db_patient)
+    return db_patient
+
+def delete_patient(db: Session, patient_id: str):
+    patient = db.query(models.patient).filter(models.patient.id == patient_id).first()
+    db.delete(patient)
+    db.commit()
+    return {"ok":True}

@@ -52,6 +52,7 @@ class Treatment(Base):
 	__tablename__ = 'treatment'
 
 	id = Column(Integer, primary_key=True, index=True)
+	name = Column(String)
 	video = Column(String)
 	created_At = Column(DateTime(timezone=True), server_default=func.now())
 	updated_at = Column(DateTime(timezone=True), server_default=func.now())

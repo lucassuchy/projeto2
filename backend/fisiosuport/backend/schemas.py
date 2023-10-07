@@ -55,17 +55,19 @@ class UserUpdate(UserBase):
     birth_date: Optional[date] = None
 
 # specialty
-class specialtyBase(BaseModel):
-    id: int
+class SpecialtyBase(BaseModel):
     name: str
 
-class specialty(specialtyBase):
+class Specialty(SpecialtyBase):
     id: int
     name: str
     class Config:
         orm_mode = True
 
-class specialtyUpdate(specialtyBase):
+class SpecialtyCreate(SpecialtyBase):
+	name: str	
+
+class SpecialtyUpdate(SpecialtyBase):
     name: Optional[str] = None
 
 # treatment
@@ -84,10 +86,43 @@ class Treatment(TreatmentBase):
 class TreatmentUpdate(TreatmentBase):
     name: Optional[str] = None
     video: Optional[str] = None
+    
+class TreatmentCreate(TreatmentBase):
+    id: int
+    name: str
+    video: str
+    
 
-# Paciente
+# Physiotherapist
+class PhysiotherapistBase(BaseModel):
+    user_id: int
+    specialty_id: int
+
+class Physiotherapist(PhysiotherapistBase):
+    user_id: int
+    specialty_id: int
+    class Config:
+        orm_mode = True
+
+class PhysiotherapistUpdate(PhysiotherapistBase):
+    user_id: Optional[int] = None
+    specialty_id: Optional[int] = None
+    
+class PhysiotherapistCreate(PhysiotherapistBase):
+    user_id: int
+    specialty_id: int
+    
+# patient
 # Preciso revisar a necessidade de relacionamento aqui
-class PacienteBase(BaseModel):
+class PatientBase(BaseModel):
+    id: int
+    quantity: int
+    duration: int
+    user_id: int
+    treatment_id: int
+    fisioterapeuta_id: int
+    
+class PatientCreate(PatientBase):
     id: int
     quantity: int
     duration: int
@@ -95,7 +130,7 @@ class PacienteBase(BaseModel):
     treatment_id: int
     fisioterapeuta_id: int
 
-class Paciente(PacienteBase):
+class Patient(PatientBase):
     id: int
     user_id: int
     treatment_id: int
@@ -105,9 +140,10 @@ class Paciente(PacienteBase):
     class Config:
         orm_mode = True
 
-class PacienteUpdate(PacienteBase):
+class PatientUpdate(PatientBase):
     user_id: Optional[int] = Column(Integer)
     treatment_id: Optional[int] = Column(Integer)
     fisioterapeuta_id: Optional[int] = Column(Integer)
     quantity: Optional[int] = None
     duration: Optional[int] = None
+    
