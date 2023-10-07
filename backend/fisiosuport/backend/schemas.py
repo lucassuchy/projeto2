@@ -54,59 +54,60 @@ class UserUpdate(UserBase):
     password: Optional[str] = None
     birth_date: Optional[date] = None
 
-# Especialidade
-class EspecialidadeBase(BaseModel):
+# specialty
+class specialtyBase(BaseModel):
     id: int
     name: str
 
-class Especialidade(EspecialidadeBase):
+class specialty(specialtyBase):
     id: int
     name: str
     class Config:
         orm_mode = True
 
-class EspecialidadeUpdate(EspecialidadeBase):
+class specialtyUpdate(specialtyBase):
     name: Optional[str] = None
 
-# Tratamento
-class TratamentoBase(BaseModel):
+# treatment
+class TreatmentBase(BaseModel):
     id: int
     name: str
     video: str
 
-class Tratamento(TratamentoBase):
+class Treatment(TreatmentBase):
     id: int
     name: str
     video: str
     class Config:
         orm_mode = True
 
-class TratamentoUpdate(TratamentoBase):
+class TreatmentUpdate(TreatmentBase):
     name: Optional[str] = None
     video: Optional[str] = None
 
 # Paciente
-class PacienteBase(BaseModel):
-    id: int
-    user_id: Column(Integer, ForeignKey("users.id"), default=None)
-    tratamento_id: Column(Integer, ForeignKey("tratamento.id"), default=None)
-    fisioterapeuta_id: Column(Integer, ForeignKey("users.id"), default=None)
-    quantity: int
-    duration: int
+# class PacienteBase(BaseModel):
+#     id: int
+#     quantity: int
+#     duration: int
 
-class Paciente(PacienteBase):
-    id: int
-    user_id: Column(Integer, ForeignKey("users.id"), default=None)
-    tratamento_id: Column(Integer, ForeignKey("tratamento.id"), default=None)
-    fisioterapeuta_id: Column(Integer, ForeignKey("users.id"), default=None)
-    quantity: int
-    duration: int
-    class Config:
-        orm_mode = True
+#     user_id: Column(Integer, ForeignKey("users.id"))
+#     treatment_id: int
+#     fisioterapeuta_id: int
 
-class PacienteUpdate(PacienteBase):
-    user_id: Optional[int] = Column(Integer, ForeignKey("user.id"), default=None)
-    tratamento_id: Optional[int] = Column(Integer, ForeignKey("tratamento.id"), default=None)
-    fisioterapeuta_id: Optional[int] = Column(Integer, ForeignKey("fisioterapeuta.id"), default=None)
-    quantity: Optional[int] = None
-    duration: Optional[int] = None
+# class Paciente(PacienteBase):
+#     id: int
+#     user_id: Column(Integer, ForeignKey("users.id"))
+    # treatment_id: Column(Integer, ForeignKey("treatment.id"), default=None)
+    # fisioterapeuta_id: Column(Integer, ForeignKey("users.id"), default=None)
+    # quantity: int
+    # duration: int
+    # class Config:
+    #     orm_mode = True
+
+# class PacienteUpdate(PacienteBase):
+#     user_id: Optional[int] = Column(Integer, ForeignKey("user.id"), default=None)
+#     treatment_id: Optional[int] = Column(Integer, ForeignKey("treatment.id"), default=None)
+#     fisioterapeuta_id: Optional[int] = Column(Integer, ForeignKey("fisioterapeuta.id"), default=None)
+#     quantity: Optional[int] = None
+#     duration: Optional[int] = None
