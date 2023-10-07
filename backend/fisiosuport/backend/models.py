@@ -6,24 +6,24 @@ from sqlalchemy.sql import func
 from ..database import Base
 
 class User(Base):
-    __tablename__ = "users"
+	__tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    documento = Column(Integer, index=True)
-    hashed_password = Column(String)
-    birth = Column(Date, default=True)
-    is_active = Column(Boolean, default=True)
-    created_At = Column(DateTime(timezone=True), server_default=func.now())
-    delete_at =  Column(DateTime(timezone=True))
-    
-    type_id = Column(Integer, ForeignKey("type.id"))
+	id = Column(Integer, primary_key=True, index=True)
+	name = Column(String, index=True)
+	documento = Column(Integer, index=True)
+	hashed_password = Column(String)
+	birth = Column(Date, default=True)
+	is_active = Column(Boolean, default=True)
+	created_At = Column(DateTime(timezone=True), server_default=func.now())
+	delete_at =  Column(DateTime(timezone=True))
+
+	type_id = Column(Integer, ForeignKey("type.id"))
     
 # Vou criar os users e o types primeiro pra teste
     
 class Types(Base):
 	__tablename__ = 'type'
-    
+
 	id = Column(Integer, primary_key=True, index=True)
 	name = Column(String, index=True)
 	created_At = Column(DateTime(timezone=True), server_default=func.now())
@@ -33,23 +33,23 @@ class Types(Base):
 # Tinha criado o tipo fisioterapeuta, mas com a tipagem do user não precisou
 
 class Specialty(Base):
-    __tablename__ = 'specialty'
-    
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    created_At = Column(DateTime(timezone=True), server_default=func.now())
-    updated_at = Column(DateTime(timezone=True), server_default=func.now())
-    delete_at =  Column(DateTime(timezone=True))
+	__tablename__ = 'specialty'
+
+	id = Column(Integer, primary_key=True, index=True)
+	name = Column(String, index=True)
+	created_At = Column(DateTime(timezone=True), server_default=func.now())
+	updated_at = Column(DateTime(timezone=True), server_default=func.now())
+	delete_at =  Column(DateTime(timezone=True))
     
 class Physiotherapist(Base):
-    __tablename__ = 'physiotherapist'
-    
-    id = Column(Integer, primary_key=True, index=True)
-    created_At = Column(DateTime(timezone=True), server_default=func.now())
-    updated_at = Column(DateTime(timezone=True), server_default=func.now())
-    delete_at =  Column(DateTime(timezone=True))
-    user_id = Column(Integer, ForeignKey("users.id"))
-    Specialty_id = Column(Integer, ForeignKey("specialty.id"))
+	__tablename__ = 'physiotherapist'
+
+	id = Column(Integer, primary_key=True, index=True)
+	created_At = Column(DateTime(timezone=True), server_default=func.now())
+	updated_at = Column(DateTime(timezone=True), server_default=func.now())
+	delete_at =  Column(DateTime(timezone=True))
+	user_id = Column(Integer, ForeignKey("users.id"))
+	Specialty_id = Column(Integer, ForeignKey("specialty.id"))
     
 class Treatment(Base):
 	__tablename__ = 'treatment'
