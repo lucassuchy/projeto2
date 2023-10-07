@@ -78,7 +78,7 @@ async def get_type(name: str, db: Session = Depends(get_db)):
     return db_type
 
 @app.post("/type/", response_model=schemas.Type)
-async def create_type(type: schemas.TypeCreate, db: Session = Depends(get_db)):
+async def create_user_type(type: schemas.TypeCreate, db: Session = Depends(get_db)):
     db_type = crud.get_type_by_name(db, name=type.name)
     if db_type:
         raise HTTPException(status_code=400, detail="Type já cadastrado")

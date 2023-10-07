@@ -61,7 +61,7 @@ def get_type_by_name(db: Session, name: str):
 #     return {"ok":True}
 
 def create_user_type(db: Session, type: schemas.TypeCreate):
-    db_type = models.Types(**type.dict())
+    db_type = models.User(name=type.name)
     db.add(db_type)
     db.commit()
     db.refresh(db_type)
