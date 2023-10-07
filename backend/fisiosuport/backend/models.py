@@ -19,8 +19,6 @@ class User(Base):
 
 	type_id = Column(Integer, ForeignKey("type.id"))
     
-# Vou criar os users e o types primeiro pra teste
-    
 class Types(Base):
 	__tablename__ = 'type'
 
@@ -29,8 +27,6 @@ class Types(Base):
 	created_At = Column(DateTime(timezone=True), server_default=func.now())
 	updated_at = Column(DateTime(timezone=True), server_default=func.now())
 	delete_at =  Column(DateTime(timezone=True))
-
-# Tinha criado o tipo fisioterapeuta, mas com a tipagem do user não precisou
 
 class Specialty(Base):
 	__tablename__ = 'specialty'
@@ -48,6 +44,7 @@ class Physiotherapist(Base):
 	created_At = Column(DateTime(timezone=True), server_default=func.now())
 	updated_at = Column(DateTime(timezone=True), server_default=func.now())
 	delete_at =  Column(DateTime(timezone=True))
+
 	user_id = Column(Integer, ForeignKey("users.id"))
 	Specialty_id = Column(Integer, ForeignKey("specialty.id"))
     
@@ -67,9 +64,11 @@ class Patient(Base):
 	quantity = Column(Integer)
 	duration = Column(Integer)
 	description = Column(String)
-	user_id = Column(Integer, ForeignKey("users.id"))
-	physiotherapist_id = Column(Integer, ForeignKey("physiotherapist.id"))
-	treatment_id = Column(Integer, ForeignKey("treatment.id"))
 	created_At = Column(DateTime(timezone=True), server_default=func.now())
 	updated_at = Column(DateTime(timezone=True), server_default=func.now())
 	delete_at =  Column(DateTime(timezone=True))
+
+	treatment_id = Column(Integer, ForeignKey("treatment.id"))
+	user_id = Column(Integer, ForeignKey("users.id"))
+	physiotherapist_id = Column(Integer, ForeignKey("physiotherapist.id"))
+

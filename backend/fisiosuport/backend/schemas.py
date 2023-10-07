@@ -25,7 +25,7 @@ class TypeUpdate(TypeBase):
 class UserBase(BaseModel):
     name: str
     password: str
-    type_id: Optional[int] = Column(Integer, ForeignKey("type.id"), default=None)
+    type_id: int
     document: int
     birth_date: date
 
@@ -42,7 +42,7 @@ class User(UserBase):
 class UserCreate(UserBase):
     name: str
     password: str
-    type_id: Optional[int] = Column(Integer, ForeignKey("type.id"), default=None)
+    type_id: int
     document: int
     birth_date: date
     
@@ -86,28 +86,28 @@ class TreatmentUpdate(TreatmentBase):
     video: Optional[str] = None
 
 # Paciente
-# class PacienteBase(BaseModel):
-#     id: int
-#     quantity: int
-#     duration: int
+# Preciso revisar a necessidade de relacionamento aqui
+class PacienteBase(BaseModel):
+    id: int
+    quantity: int
+    duration: int
+    user_id: int
+    treatment_id: int
+    fisioterapeuta_id: int
 
-#     user_id: Column(Integer, ForeignKey("users.id"))
-#     treatment_id: int
-#     fisioterapeuta_id: int
+class Paciente(PacienteBase):
+    id: int
+    user_id: int
+    treatment_id: int
+    fisioterapeuta_id: int
+    quantity: int
+    duration: int
+    class Config:
+        orm_mode = True
 
-# class Paciente(PacienteBase):
-#     id: int
-#     user_id: Column(Integer, ForeignKey("users.id"))
-    # treatment_id: Column(Integer, ForeignKey("treatment.id"), default=None)
-    # fisioterapeuta_id: Column(Integer, ForeignKey("users.id"), default=None)
-    # quantity: int
-    # duration: int
-    # class Config:
-    #     orm_mode = True
-
-# class PacienteUpdate(PacienteBase):
-#     user_id: Optional[int] = Column(Integer, ForeignKey("user.id"), default=None)
-#     treatment_id: Optional[int] = Column(Integer, ForeignKey("treatment.id"), default=None)
-#     fisioterapeuta_id: Optional[int] = Column(Integer, ForeignKey("fisioterapeuta.id"), default=None)
-#     quantity: Optional[int] = None
-#     duration: Optional[int] = None
+class PacienteUpdate(PacienteBase):
+    user_id: Optional[int] = Column(Integer)
+    treatment_id: Optional[int] = Column(Integer)
+    fisioterapeuta_id: Optional[int] = Column(Integer)
+    quantity: Optional[int] = None
+    duration: Optional[int] = None
