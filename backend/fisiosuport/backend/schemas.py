@@ -141,9 +141,8 @@ class Patient(PatientBase):
         orm_mode = True
 
 class PatientUpdate(PatientBase):
-    user_id: Optional[int] = Column(Integer)
-    treatment_id: Optional[int] = Column(Integer)
-    fisioterapeuta_id: Optional[int] = Column(Integer)
+    treatment_id: Optional[int] = None
+    fisioterapeuta_id: Optional[int] = None
     quantity: Optional[int] = None
     duration: Optional[int] = None
     

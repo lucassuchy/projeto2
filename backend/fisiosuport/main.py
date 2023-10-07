@@ -234,14 +234,14 @@ async def read_patient(skip: int = 0, limit: int = 100, db: Session = Depends(ge
 async def create_patient(patient: schemas.PatientCreate, db: Session = Depends(get_db)):
     db_patient = crud.get_patient_by_name(db, name=patient.name)
     if db_patient:
-        raise HTTPException(status_code=400, detail="patient já cadastrado")
+        raise HTTPException(status_code=400, detail="Paciente já cadastrado")
     return crud.create_patient(db=db, patient=patient)
 
 @app.get("/patient/{id}", response_model=schemas.Patient)
 async def get_patient(id: int, db: Session = Depends(get_db)):
     db_patient = crud.get_patient_by_id(db, id=id)
     if db_patient is None:
-        raise HTTPException(status_code=404, detail="patient não encontrado")
+        raise HTTPException(status_code=404, detail="Paciente não encontrado")
     return db_patient
 
 @app.get("/patient/name/{name}", response_model=schemas.Patient)
@@ -255,7 +255,7 @@ async def get_patient_name(name: str, db: Session = Depends(get_db)):
 async def update_patient(id:int ,patient: schemas.PatientUpdate, db: Session = Depends(get_db)):
     db_patient = crud.get_patient_by_id(db, id=id)
     if db_patient is None:
-        raise HTTPException(status_code=404, detail="patient não encontrado")
+        raise HTTPException(status_code=404, detail="Paciente não encontrado")
     return crud.update_patient(db=db, patient=patient, patient_id=id)
 
 @app.delete("/patient/{patient_id}")
