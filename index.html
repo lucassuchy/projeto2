@@ -12,39 +12,44 @@
   </header>
 
   <body>
-    <div>
+    <br/>
+    <br/>
+    <br/>
+    </body>
+    <div class="grid place-items-center">
       <img
         src="img/Fisiosuport_logo.png"
         alt="Logotipo FisioSuport"
-        class="logo_inicial"
+        class="logo_inicial object-cover h-30 w-80"
       />
     </div>
 
     <div>
-      <p class="faca_login">Faça login em sua conta</p>
+      <p class="faca_login grid place-items-center">Faça login em sua conta</p>
     </div>
     <br />
     <br />
-    <div class="container">
+    <div class="container grid place-items-center">
       <input required="" type="text" name="text" class="input" />
       <label class="label">Usuário</label>
     </div>
     <br /><br />
 
-    <div class="container">
+    <div class="container grid place-items-center">
       <input
         required=""
         id="pass"
         type="password"
         name="text"
         class="input"
-        minlength="8"
+        minlength="50"
+        maxlength="200"
       />
       <label for="pass" class="label">Senha</label>
     </div>
     <br /><br />
 
-    <div class="button_enter">
+    <div class="button_enter grid place-items-center">
       <a href="./home.html"><button>Entrar</button></a>
     </div>
   </body>
