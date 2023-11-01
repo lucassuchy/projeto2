@@ -498,7 +498,8 @@ textarea::-moz-placeholder {
   /* 2 */
 }
 
-input::-moz-placeholder, textarea::-moz-placeholder {
+input::-moz-placeholder,
+textarea::-moz-placeholder {
   opacity: 1;
   /* 1 */
   color: #9ca3af;
@@ -910,7 +911,7 @@ video {
 }
 
 button {
-  --color: #b6c2b2;
+  --color: #d9d9d9;
   font-family: inherit;
   display: inline-block;
   width: 8em;
@@ -939,7 +940,7 @@ button:before {
 }
 
 button:hover {
-  color: #fff;
+  color: #212f3f;
 }
 
 button:before {
