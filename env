@@ -1,3 +1,0 @@
-
-# Conexão com o banco
-DATABASE_URI = postgresql://lucas:uHC2ffkPrEV2nvGDzdjQ@fisiosuport.cay7ad01qmfs.sa-east-1.rds.amazonaws.com:5432/fisiosuport
