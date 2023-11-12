@@ -12,9 +12,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-<<<<<<< HEAD
   plugins: [require('@tailwindcss/forms')],
-=======
-  plugins: [],
->>>>>>> cf28136 (inserido imagens no menu e arquivo css / tailwind)
 };
