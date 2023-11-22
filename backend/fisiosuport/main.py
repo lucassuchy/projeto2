@@ -197,9 +197,12 @@ async def read_physiotherapist(skip: int = 0, limit: int = 100, db: Session = De
 
 @app.post("/physiotherapist/", response_model=schemas.Physiotherapist)
 async def create_physiotherapist(physiotherapist: schemas.PhysiotherapistCreate, db: Session = Depends(get_db)):
-    db_physiotherapist = crud.get_physiotherapist_by_name(db, name=physiotherapist.name)
+    db_physiotherapist = crud.get_physiotherapist_by_id(db, id=physiotherapist.user_id)
+    db_specialty = crud.get_specialty_by_id(db, id = physiotherapist.specialty_id)
     if db_physiotherapist:
         raise HTTPException(status_code=400, detail="physiotherapist já cadastrado")
+    if db_specialty is None:
+        raise HTTPException(status_code=404, detail="specialty não encontrada")
     return crud.create_physiotherapist(db=db, physiotherapist=physiotherapist)
 
 @app.get("/physiotherapist/{id}", response_model=schemas.Physiotherapist)
@@ -216,7 +219,7 @@ async def get_physiotherapist_name(name: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="physiotherapist não encontrado")
     return db_physiotherapist
 
-@app.patch("/physiotherapist/{id}", response_model=schemas.Physiotherapist)
+@app.patch("/physiotherapist/{user_id}", response_model=schemas.Physiotherapist)
 async def update_physiotherapist(id:int ,physiotherapist: schemas.PhysiotherapistUpdate, db: Session = Depends(get_db)):
     db_physiotherapist = crud.get_physiotherapist_by_id(db, id=id)
     if db_physiotherapist is None:

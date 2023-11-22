@@ -151,7 +151,7 @@ def get_treatment_by_name(db: Session, name: str):
     return db.query(models.Treatment).filter(models.Treatment.name == name).first()
 
 def create_treatment(db: Session, treatment: schemas.TreatmentCreate):
-    db_treatment = models.Treatment(name=treatment.name)
+    db_treatment = models.Treatment(name=treatment.name, video=treatment.video)
     db.add(db_treatment)
     db.commit()
     db.refresh(db_treatment)
@@ -179,20 +179,20 @@ def get_physiotherapist(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Physiotherapist).offset(skip).limit(limit).all()
 
 def get_physiotherapist_by_id(db: Session, id: int):
-    return db.query(models.physiotherapist).filter(models.physiotherapist.id == id).first()
+    return db.query(models.Physiotherapist).filter(models.Physiotherapist.id == id).first()
 
 def get_physiotherapist_by_name(db: Session, name: str):
-    return db.query(models.physiotherapist).filter(models.physiotherapist.name == name).first()
+    return db.query(models.Physiotherapist).filter(models.Physiotherapist.name == name).first()
 
 def create_physiotherapist(db: Session, physiotherapist: schemas.PhysiotherapistCreate):
-    db_physiotherapist = models.physiotherapist(name=physiotherapist.name)
+    db_physiotherapist = models.Physiotherapist(user_id=physiotherapist.user_id, specialty_id=physiotherapist.specialty_id)
     db.add(db_physiotherapist)
     db.commit()
     db.refresh(db_physiotherapist)
     return db_physiotherapist
 
 def update_physiotherapist(db: Session, physiotherapist_id: str, physiotherapist: schemas.PhysiotherapistUpdate):
-    db_physiotherapist = db.query(models.physiotherapist).filter(models.physiotherapist.id == physiotherapist_id).first()
+    db_physiotherapist = db.query(models.Physiotherapist).filter(models.Physiotherapist.id == physiotherapist_id).first()
     physiotherapist_data = physiotherapist.dict(exclude_unset=True)
     for key, value in physiotherapist_data.items():
         setattr(db_physiotherapist, key, value)
@@ -202,7 +202,7 @@ def update_physiotherapist(db: Session, physiotherapist_id: str, physiotherapist
     return db_physiotherapist
 
 def delete_physiotherapist(db: Session, physiotherapist_id: str):
-    physiotherapist = db.query(models.physiotherapist).filter(models.physiotherapist.id == physiotherapist_id).first()
+    physiotherapist = db.query(models.Physiotherapist).filter(models.Physiotherapist.id == physiotherapist_id).first()
     db.delete(physiotherapist)
     db.commit()
     return {"ok":True}

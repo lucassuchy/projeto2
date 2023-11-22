@@ -46,7 +46,7 @@ class Physiotherapist(Base):
 	delete_at =  Column(DateTime(timezone=True))
 
 	user_id = Column(Integer, ForeignKey("users.id"))
-	Specialty_id = Column(Integer, ForeignKey("specialty.id"))
+	specialty_id = Column(Integer, ForeignKey("specialty.id"))
     
 class Treatment(Base):
 	__tablename__ = 'treatment'

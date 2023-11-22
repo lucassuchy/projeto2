@@ -1,3 +1,3 @@
 - Todo
  - Remover password do retorno do get
- 
+ - Pesquisas usar upper nos dois lados e trim 
