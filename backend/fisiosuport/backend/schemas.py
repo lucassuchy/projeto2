@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import  Optional
-from sqlalchemy import  Column, ForeignKey, Integer
+from sqlalchemy import  Column, ForeignKey, Integer, BigInteger
 from sqlalchemy.orm import relationship
 from datetime import date
 
@@ -13,7 +13,7 @@ class Type(TypeBase):
     name: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class TypeCreate(TypeBase):
     name: str
@@ -37,7 +37,7 @@ class User(UserBase):
     birth_date: Optional[date] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class UserCreate(UserBase):
     name: str
@@ -62,7 +62,7 @@ class Specialty(SpecialtyBase):
     id: int
     name: str
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class SpecialtyCreate(SpecialtyBase):
 	name: str	
@@ -81,7 +81,7 @@ class Treatment(TreatmentBase):
     name: str
     video: str
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class TreatmentUpdate(TreatmentBase):
     name: Optional[str] = None
@@ -102,7 +102,7 @@ class Physiotherapist(PhysiotherapistBase):
     user_id: int
     specialty_id: int
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class PhysiotherapistUpdate(PhysiotherapistBase):
     user_id: Optional[int] = None
@@ -138,7 +138,7 @@ class Patient(PatientBase):
     quantity: int
     duration: int
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class PatientUpdate(PatientBase):
     treatment_id: Optional[int] = None

@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, Date
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, Date, BigInteger
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
@@ -10,9 +10,9 @@ class User(Base):
 
 	id = Column(Integer, primary_key=True, index=True)
 	name = Column(String, index=True)
-	documento = Column(Integer, index=True)
-	hashed_password = Column(String)
-	birth = Column(Date, default=True)
+	document = Column(BigInteger(), index=True)
+	password = Column(String)
+	birth_date = Column(Date, default=True)
 	is_active = Column(Boolean, default=True)
 	created_At = Column(DateTime(timezone=True), server_default=func.now())
 	delete_at =  Column(DateTime(timezone=True))

@@ -22,19 +22,24 @@ async def get_db():
 # Users
 @app.post("/users/", response_model=schemas.User)
 async def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_name(db, name=user.name)
+    db_user = crud.get_user_by_document(db, document=user.document)
     if db_user:
         raise HTTPException(status_code=400, detail="Usuario já cadastrado")
+    user_type = crud.get_type_by_id(db, id = user.type_id)
+    if not user_type:
+        raise HTTPException(status_code=400, detail="Tipo não existente")
     return crud.create_user(db=db, user=user)
 
 @app.get("/users/", response_model=list[schemas.User])
 async def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     users = crud.get_users(db, skip=skip, limit=limit)
+    if not users:
+        raise HTTPException(status_code=400, detail="Sem usuarios cadastrados")
     return users
 
 @app.get("/users/documento/{documento}", response_model=schemas.User)
 def read_user(documento: int, db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_document(db, documento=documento)
+    db_user = crud.get_user_by_document(db, document=documento)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User não encontrado")
     return db_user

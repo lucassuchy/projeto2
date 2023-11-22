@@ -10,8 +10,8 @@ def get_user(db: Session, user_id: int):
 def get_user_by_name(db: Session, name: str):
     return db.query(models.User).filter(models.User.name == name).first()
 
-def get_user_by_document(db: Session, documento: int):
-    return db.query(models.User).filter(models.User.documento == documento).first()
+def get_user_by_document(db: Session, document: int):
+    return db.query(models.User).filter(models.User.document == document).first()
 
 def get_users(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.User).offset(skip).limit(limit).all()
@@ -20,7 +20,7 @@ def get_users(db: Session, skip: int = 0, limit: int = 100):
 # Preciso alterar aqui pra receber o id do type e o documento
 def create_user(db: Session, user: schemas.UserCreate):
     fake_hashed_password = user.password + "notreallyhashed"
-    db_user = models.User(name=user.name, hashed_password=fake_hashed_password, type_id = user.type_id, document = user.document)
+    db_user = models.User(name=user.name, password=fake_hashed_password, type_id = user.type_id, birth_date = user.birth_date, document = user.document)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
@@ -55,7 +55,7 @@ def get_type_by_name(db: Session, name: str):
     return db.query(models.Types).filter(models.Types.name == name).first()
 
 def create_user_type(db: Session, type: schemas.TypeCreate):
-    db_type = models.User(name=type.name)
+    db_type = models.Types(name=type.name)
     db.add(db_type)
     db.commit()
     db.refresh(db_type)
