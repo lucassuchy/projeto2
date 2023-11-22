@@ -148,7 +148,9 @@ def delete_specialty(specialty_id: int, db: Session = Depends(get_db)):
 # treatment
 @app.get("/treatment/", response_model=list[schemas.Treatment])
 async def read_treatment(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    type = crud.get_treatment(db, skip=skip, limit=limit)
+    type = crud.get_treatments(db, skip=skip, limit=limit)
+    if not type:
+        raise HTTPException(status_code=400, detail="Sem usuarios cadastrados")
     return type
 
 @app.post("/treatment/", response_model=schemas.Treatment)

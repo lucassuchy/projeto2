@@ -139,11 +139,16 @@ def delete_patient(db: Session, patient_id: str):
 
 
 # Treament
+
+
+def get_treatments(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Treatment).offset(skip).limit(limit).all()
+
 def get_treatment_by_id(db: Session, id: int):
-    return db.query(models.treatment).filter(models.treatment.id == id).first()
+    return db.query(models.Treatment).filter(models.Treatment.id == id).first()
 
 def get_treatment_by_name(db: Session, name: str):
-    return db.query(models.treatment).filter(models.treatment.name == name).first()
+    return db.query(models.Treatment).filter(models.Treatment.name == name).first()
 
 def create_treatment(db: Session, treatment: schemas.TreatmentCreate):
     db_treatment = models.Treatment(name=treatment.name)
@@ -153,7 +158,7 @@ def create_treatment(db: Session, treatment: schemas.TreatmentCreate):
     return db_treatment
 
 def update_treatment(db: Session, treatment_id: str, treatment: schemas.TreatmentUpdate):
-    db_treatment = db.query(models.treatment).filter(models.treatment.id == treatment_id).first()
+    db_treatment = db.query(models.Treatment).filter(models.Treatment.id == treatment_id).first()
     treatment_data = treatment.dict(exclude_unset=True)
     for key, value in treatment_data.items():
         setattr(db_treatment, key, value)
@@ -163,12 +168,16 @@ def update_treatment(db: Session, treatment_id: str, treatment: schemas.Treatmen
     return db_treatment
 
 def delete_treatment(db: Session, treatment_id: str):
-    treatment = db.query(models.treatment).filter(models.treatment.id == treatment_id).first()
+    treatment = db.query(models.Treatment).filter(models.Treatment.id == treatment_id).first()
     db.delete(treatment)
     db.commit()
     return {"ok":True}
 
 # physiotherapist
+
+def get_physiotherapist(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Physiotherapist).offset(skip).limit(limit).all()
+
 def get_physiotherapist_by_id(db: Session, id: int):
     return db.query(models.physiotherapist).filter(models.physiotherapist.id == id).first()
 

@@ -72,7 +72,6 @@ class SpecialtyUpdate(SpecialtyBase):
 
 # treatment
 class TreatmentBase(BaseModel):
-    id: int
     name: str
     video: str
 
@@ -88,7 +87,6 @@ class TreatmentUpdate(TreatmentBase):
     video: Optional[str] = None
     
 class TreatmentCreate(TreatmentBase):
-    id: int
     name: str
     video: str
     
