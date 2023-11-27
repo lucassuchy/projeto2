@@ -10,9 +10,15 @@
   },
   "dependencies": {
     "axios": "^1.6.2",
+    "axios-debug-log": "^1.0.0",
+    "fs": "^0.0.1-security",
+    "net": "^1.0.2",
     "next": "14.0.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "request": "^2.88.2",
+    "requests": "^0.3.0",
+    "tls": "^0.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
@@ -20,5 +26,10 @@
     "eslint-config-next": "14.0.3",
     "postcss": "^8",
     "tailwindcss": "^3.3.0"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
   }
 }
