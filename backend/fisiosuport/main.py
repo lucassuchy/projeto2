@@ -80,6 +80,12 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     # Mudar a mensagem de retorno
     return {"Ok": True}
 
+@app.get("/pacientes/", response_model=list[schemas.User])
+async def read_(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    users = crud.get_users(db, skip=skip, limit=limit)
+    if not users:
+        raise HTTPException(status_code=400, detail="Sem usuarios cadastrados")
+    return users
 
 # Types
 @app.get("/type/", response_model=list[schemas.Type])
@@ -203,12 +209,12 @@ def delete_treatment(treatment_id: int, db: Session = Depends(get_db)):
     return {"Ok": True}
 
 # physiotherapist
-@app.get("/physiotherapist/", response_model=list[schemas.Physiotherapist])
+@app.get("/physiotherapist/", response_model=list[schemas.User])
 async def read_physiotherapist(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     type = crud.get_physiotherapist(db, skip=skip, limit=limit)
     return type
 
-@app.post("/physiotherapist/", response_model=schemas.Physiotherapist)
+@app.post("/physiotherapist/", response_model=schemas.User)
 async def create_physiotherapist(physiotherapist: schemas.PhysiotherapistCreate, db: Session = Depends(get_db)):
     db_physiotherapist = crud.get_physiotherapist_by_id(db, id=physiotherapist.user_id)
     db_specialty = crud.get_specialty_by_id(db, id = physiotherapist.specialty_id)
@@ -248,7 +254,7 @@ def delete_physiotherapist(physiotherapist_id: int, db: Session = Depends(get_db
     return {"Ok": True}
 
 # patient
-@app.get("/patient/", response_model=list[schemas.Patient])
+@app.get("/patient/", response_model=list[schemas.User])
 async def read_patient(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     type = crud.get_patient(db, skip=skip, limit=limit)
     return type

@@ -174,12 +174,11 @@ def delete_treatment(db: Session, treatment_id: str):
     return {"ok":True}
 
 # physiotherapist
-
 def get_physiotherapist(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Physiotherapist).offset(skip).limit(limit).all()
+    return db.query(models.User).filter(models.User.type_id == 1).filter(models.User.is_active == True).offset(skip).limit(limit).all()
 
 def get_physiotherapist_by_id(db: Session, id: int):
-    return db.query(models.Physiotherapist).filter(models.Physiotherapist.id == id).first()
+    return db.query(models.User).filter(models.User.id == id).first()
 
 def get_physiotherapist_by_name(db: Session, name: str):
     return db.query(models.Physiotherapist).filter(models.Physiotherapist.name == name).first()
@@ -206,6 +205,9 @@ def delete_physiotherapist(db: Session, physiotherapist_id: str):
     db.delete(physiotherapist)
     db.commit()
     return {"ok":True}
+
+def get_patient(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Physiotherapist).filter(models.User.type_id == 2).offset(skip).limit(limit).all()
 
 def get_patient_by_id(db: Session, id: int):
     return db.query(models.patient).filter(models.patient.id == id).first()
