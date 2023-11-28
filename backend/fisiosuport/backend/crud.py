@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, aliased
 
 from . import models, schemas
 
@@ -175,7 +175,19 @@ def delete_treatment(db: Session, treatment_id: str):
 
 # physiotherapist
 def get_physiotherapist(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.User).filter(models.User.type_id == 1).filter(models.User.is_active == True).offset(skip).limit(limit).all()
+    
+    # specialty = aliased(models.Specialty.name, name="specialty")
+    return (db.query(models.User.id, models.User.name
+                    , models.User.document
+                    , models.User.birth_date
+                    , models.Specialty.name.label('specialty'))
+                .join(models.Physiotherapist, models.User.id == models.Physiotherapist.user_id)
+                .join(models.Specialty, models.Physiotherapist.specialty_id == models.Specialty.id)
+                .filter(models.User.type_id == 1)
+                .filter(models.User.is_active == True)
+                .offset(skip)
+                .limit(limit)
+                .all())
 
 def get_physiotherapist_by_id(db: Session, id: int):
     return db.query(models.User).filter(models.User.id == id).first()

@@ -1,7 +1,6 @@
 "use client";
 import axios from "axios";
 import { useState } from "react";
-// DEBUG=axios
 
 
 export default function CadastradoUsuarios() {

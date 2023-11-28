@@ -18,6 +18,19 @@ class User(Base):
 	delete_at =  Column(DateTime(timezone=True))
 
 	type_id = Column(Integer, ForeignKey("type.id"))
+	physiotherapists = relationship("Physiotherapist", back_populates="user")
+
+class Physiotherapist(Base):
+	__tablename__ = 'physiotherapist'
+
+	id = Column(Integer, primary_key=True, index=True)
+	created_At = Column(DateTime(timezone=True), server_default=func.now())
+	updated_at = Column(DateTime(timezone=True), server_default=func.now())
+	delete_at =  Column(DateTime(timezone=True))
+
+	user_id = Column(Integer, ForeignKey("users.id"))
+	specialty_id = Column(Integer, ForeignKey("specialty.id"))
+	user = relationship("User", back_populates="physiotherapists")
     
 class Types(Base):
 	__tablename__ = 'type'
@@ -36,17 +49,9 @@ class Specialty(Base):
 	created_At = Column(DateTime(timezone=True), server_default=func.now())
 	updated_at = Column(DateTime(timezone=True), server_default=func.now())
 	delete_at =  Column(DateTime(timezone=True))
+
     
-class Physiotherapist(Base):
-	__tablename__ = 'physiotherapist'
 
-	id = Column(Integer, primary_key=True, index=True)
-	created_At = Column(DateTime(timezone=True), server_default=func.now())
-	updated_at = Column(DateTime(timezone=True), server_default=func.now())
-	delete_at =  Column(DateTime(timezone=True))
-
-	user_id = Column(Integer, ForeignKey("users.id"))
-	specialty_id = Column(Integer, ForeignKey("specialty.id"))
     
 class Treatment(Base):
 	__tablename__ = 'treatment'

@@ -209,17 +209,17 @@ def delete_treatment(treatment_id: int, db: Session = Depends(get_db)):
     return {"Ok": True}
 
 # physiotherapist
-@app.get("/physiotherapist/", response_model=list[schemas.User])
+@app.get("/physiotherapist/", response_model=list[schemas.PhysiotherapistOutput])
 async def read_physiotherapist(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     type = crud.get_physiotherapist(db, skip=skip, limit=limit)
     return type
 
-@app.post("/physiotherapist/", response_model=schemas.User)
+@app.post("/physiotherapist/", response_model=schemas.Physiotherapist)
 async def create_physiotherapist(physiotherapist: schemas.PhysiotherapistCreate, db: Session = Depends(get_db)):
     db_physiotherapist = crud.get_physiotherapist_by_id(db, id=physiotherapist.user_id)
     db_specialty = crud.get_specialty_by_id(db, id = physiotherapist.specialty_id)
-    if db_physiotherapist:
-        raise HTTPException(status_code=400, detail="physiotherapist já cadastrado")
+    # if db_physiotherapist:
+    #     raise HTTPException(status_code=400, detail="physiotherapist já cadastrado")
     if db_specialty is None:
         raise HTTPException(status_code=404, detail="specialty não encontrada")
     return crud.create_physiotherapist(db=db, physiotherapist=physiotherapist)

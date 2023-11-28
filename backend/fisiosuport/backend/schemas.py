@@ -110,6 +110,13 @@ class PhysiotherapistCreate(PhysiotherapistBase):
     user_id: int
     specialty_id: int
     
+
+class PhysiotherapistOutput(BaseModel):
+    name: str
+    document: int
+    birth_date: date
+    specialty: str
+    
 # patient
 # Preciso revisar a necessidade de relacionamento aqui
 class PatientBase(BaseModel):
