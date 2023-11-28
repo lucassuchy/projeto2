@@ -116,6 +116,9 @@ class PhysiotherapistOutput(BaseModel):
     document: int
     birth_date: date
     specialty: str
+
+    class Config:
+        orm_mode = True
     
 # patient
 # Preciso revisar a necessidade de relacionamento aqui

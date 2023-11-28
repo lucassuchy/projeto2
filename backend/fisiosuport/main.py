@@ -1,4 +1,4 @@
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, File, UploadFile
 from .backend import crud, models
 from sqlalchemy.orm import Session
 from fastapi.encoders import jsonable_encoder
