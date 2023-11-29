@@ -73,17 +73,7 @@ export default function Agenda() {
           <i class="fas fa-plus"></i>
         </button>
       </div>
-
-      <div class="credits">
-        <p>
-          Crafted with ❤️ by
-          <a href="https://youtu.be/6EVgmpm4z5U" target="_blank">
-            Open Source Coding
-          </a>
-        </p>
-      </div>
-
-      <script src="script.js"></script>
+      <script src="scriptAgenda.js"></script>
     </div>
   );
 }
