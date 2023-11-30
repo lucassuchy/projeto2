@@ -1,16 +1,17 @@
+
 // import InicialFisioterapeuta from './components/InicialFisioterapeuta'
-import Navbar from "./components/navbar";
-import Sidebar from "./components/sidebar";
-import CadastradoUsuarios from "./components/CadastradoUsuarios";
-import InicialFisioterapeuta from "./components/Fisioterapeuta";
-import Agenda from "./components/Agenda";
+'use client'
+import Navbar from './components/navbar'
+import Sidebar from './components/sidebar'
+import Routers from './router/router'
 
 export default function Home() {
   return (
     <>
-      <Navbar />
-      <Sidebar />
-      <Agenda />
+        <Navbar/>
+        <Routers>
+          <Sidebar/>
+        </Routers>
     </>
-  );
+  )
 }

@@ -175,7 +175,11 @@ def delete_treatment(db: Session, treatment_id: str):
 
 # physiotherapist
 def get_physiotherapist(db: Session, skip: int = 0, limit: int = 100):
-    
+    '''
+    select a.id, a.name,a.document, a.is_active,a.type_id, c.name from users a
+            inner join physiotherapist b on a.id = b.user_id
+            inner join specialty c on b.specialty_id = c.id 
+    '''
     # specialty = aliased(models.Specialty.name, name="specialty")
     return (db.query(models.User.id, models.User.name
                     , models.User.document
@@ -219,16 +223,54 @@ def delete_physiotherapist(db: Session, physiotherapist_id: str):
     return {"ok":True}
 
 def get_patient(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Physiotherapist).filter(models.User.type_id == 2).offset(skip).limit(limit).all()
+    ''' 
+    select c.id as "patient_id"
+    , b.name as "patient"
+    , b.birth_date
+    , a.quantity
+    , a.duration
+    , a.description
+    , c.name as "treatment"
+    , d.id as "physiotherapist_id"
+    , d.name as "physiotherapist_id"
+            from patient a 
+            inner join users b on a.user_id = b.id 
+            inner join treatment c on a.treatment_id = c.id
+            inner join users d on a.physiotherapist_id = d.id;
+    '''
+    Physiotherapist_alias = aliased(models.User, name='Physiotherapist_alias')
+
+    return (db.query(models.User.name.label('patient')
+                    , models.User.id.label('patient_id')
+                    , models.Patient.quantity
+                    , models.Patient.duration
+                    , models.Treatment.name.label('treatment')
+                    , models.Physiotherapist.id.label('physiotherapist_id')
+                    , Physiotherapist_alias.name.label('physiotherapist')
+                    , models.Patient.description
+                    )
+                .join(models.Patient, models.Patient.user_id == models.User.id)
+                .join(models.Treatment, models.Treatment.id == models.Patient.treatment_id)
+                .join(Physiotherapist_alias, models.Patient.physiotherapist_id == Physiotherapist_alias.id)
+                .offset(skip)
+                .limit(limit)
+                .all())
 
 def get_patient_by_id(db: Session, id: int):
-    return db.query(models.patient).filter(models.patient.id == id).first()
+    return db.query(models.Patient).filter(models.Patient.id == id).first()
+
+def get_patient_by_user_id(db: Session, user_id: int):
+    return db.query(models.Patient).filter(models.Patient.user_id == user_id).first()
 
 def get_patient_by_name(db: Session, name: str):
-    return db.query(models.patient).filter(models.patient.name == name).first()
+    return db.query(models.Patient).filter(models.Patient.name == name).first()
 
 def create_patient(db: Session, patient: schemas.PatientCreate):
-    db_patient = models.patient(name=patient.name)
+    db_patient = models.Patient(quantity=patient.quantity
+                                , duration = patient.duration
+                                , user_id = patient.user_id
+                                , treatment_id = patient.treatment_id
+                                , physiotherapist_id = patient.physiotherapist_id)
     db.add(db_patient)
     db.commit()
     db.refresh(db_patient)

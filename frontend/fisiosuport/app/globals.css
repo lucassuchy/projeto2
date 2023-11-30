@@ -24,9 +24,9 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-}
+ }
 
-// Estilização Calendário
+/* // Estilização Calendário
 
 :root {
   --primary-clr: rgb(10 31 45);
@@ -37,7 +37,7 @@ body {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-/* nice scroll bar */
+ nice scroll bar 
 ::-webkit-scrollbar {
   width: 5px;
 }
@@ -87,7 +87,7 @@ body {
   border-radius: 5px;
   background-color: #fff;
 }
-/* set after behind the main element */
+ set after behind the main element 
 .calendar::before,
 .calendar::after {
   content: "";
@@ -324,7 +324,7 @@ body {
   background: linear-gradient(90deg, #3f4458, transparent);
   cursor: pointer;
 }
-/* even event */
+ even event 
 .events .event:nth-child(even) {
   background: transparent;
 }
@@ -358,7 +358,7 @@ body {
 .events .event:hover .event-time {
   color: #fff;
 }
-/* add tick in event after */
+ add tick in event after 
 .events .event::after {
   content: "✓";
   position: absolute;
@@ -505,7 +505,7 @@ body {
   color: var(--primary-clr);
 }
 
-/* media queries */
+ media queries 
 
 @media screen and (max-width: 1000px) {
   body {
@@ -585,4 +585,4 @@ body {
 }
 .credits a:hover {
   text-decoration: underline;
-}
+}  */

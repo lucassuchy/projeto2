@@ -254,14 +254,14 @@ def delete_physiotherapist(physiotherapist_id: int, db: Session = Depends(get_db
     return {"Ok": True}
 
 # patient
-@app.get("/patient/", response_model=list[schemas.User])
+@app.get("/patient/", response_model=list[schemas.PatientOut])
 async def read_patient(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     type = crud.get_patient(db, skip=skip, limit=limit)
     return type
 
 @app.post("/patient/", response_model=schemas.Patient)
 async def create_patient(patient: schemas.PatientCreate, db: Session = Depends(get_db)):
-    db_patient = crud.get_patient_by_name(db, name=patient.name)
+    db_patient = crud.get_patient_by_user_id(db, user_id=patient.user_id)
     if db_patient:
         raise HTTPException(status_code=400, detail="Paciente já cadastrado")
     return crud.create_patient(db=db, patient=patient)

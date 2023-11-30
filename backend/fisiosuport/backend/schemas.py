@@ -118,31 +118,29 @@ class PhysiotherapistOutput(BaseModel):
     specialty: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
     
 # patient
 # Preciso revisar a necessidade de relacionamento aqui
 class PatientBase(BaseModel):
-    id: int
     quantity: int
     duration: int
     user_id: int
     treatment_id: int
-    fisioterapeuta_id: int
+    physiotherapist_id: int
     
 class PatientCreate(PatientBase):
-    id: int
     quantity: int
     duration: int
     user_id: int
     treatment_id: int
-    fisioterapeuta_id: int
+    physiotherapist_id: int
 
 class Patient(PatientBase):
     id: int
     user_id: int
     treatment_id: int
-    fisioterapeuta_id: int
+    physiotherapist_id: int
     quantity: int
     duration: int
     class Config:
@@ -150,7 +148,16 @@ class Patient(PatientBase):
 
 class PatientUpdate(PatientBase):
     treatment_id: Optional[int] = None
-    fisioterapeuta_id: Optional[int] = None
+    physiotherapist_id: Optional[int] = None
     quantity: Optional[int] = None
     duration: Optional[int] = None
     
+class PatientOut(BaseModel):
+    patient_id: int
+    patient: str
+    quantity: int
+    duration: int
+    description: Optional[str] = None
+    treatment: str
+    physiotherapist_id: int
+    physiotherapist: str
