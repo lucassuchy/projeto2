@@ -112,6 +112,7 @@ class PhysiotherapistCreate(PhysiotherapistBase):
     
 
 class PhysiotherapistOutput(BaseModel):
+    id:int
     name: str
     document: int
     birth_date: date
@@ -130,9 +131,14 @@ class PatientBase(BaseModel):
     physiotherapist_id: int
     
 class PatientCreate(PatientBase):
+    name: str
+    password: str
+    type_id: int
+    document: int
+    user_id: Optional[int] = None
+    birth_date: date
     quantity: int
     duration: int
-    user_id: int
     treatment_id: int
     physiotherapist_id: int
 
@@ -161,3 +167,6 @@ class PatientOut(BaseModel):
     treatment: str
     physiotherapist_id: int
     physiotherapist: str
+
+
+

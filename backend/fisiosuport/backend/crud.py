@@ -181,7 +181,8 @@ def get_physiotherapist(db: Session, skip: int = 0, limit: int = 100):
             inner join specialty c on b.specialty_id = c.id 
     '''
     # specialty = aliased(models.Specialty.name, name="specialty")
-    return (db.query(models.User.id, models.User.name
+    return (db.query(models.User.id.label('id')
+                    , models.User.name
                     , models.User.document
                     , models.User.birth_date
                     , models.Specialty.name.label('specialty'))
@@ -266,9 +267,18 @@ def get_patient_by_name(db: Session, name: str):
     return db.query(models.Patient).filter(models.Patient.name == name).first()
 
 def create_patient(db: Session, patient: schemas.PatientCreate):
+    fake_hashed_password = patient.password + "notreallyhashed"
+    db_user = models.User(name=patient.name
+                        , password=fake_hashed_password
+                        , type_id = patient.type_id
+                        , birth_date = patient.birth_date
+                        , document = patient.document)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
     db_patient = models.Patient(quantity=patient.quantity
                                 , duration = patient.duration
-                                , user_id = patient.user_id
+                                , user_id = db_user.id
                                 , treatment_id = patient.treatment_id
                                 , physiotherapist_id = patient.physiotherapist_id)
     db.add(db_patient)

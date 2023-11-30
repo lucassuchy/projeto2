@@ -1,6 +1,7 @@
 'use client'
 
-export default function Navbar() {
+export default function Navbar({Title}) {
+    console.log({Title})
     return(
         <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div className="px-3 py-3 lg:px-5 lg:pl-3">
@@ -14,7 +15,7 @@ export default function Navbar() {
                         </button>
                         <a href="" className="flex ml-2 md:mr-24">
                             <img src="./img.ico" className="h-20 mr-40" alt="FISIOSUPORT LOGO"/>
-                            <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">INICIO</span>
+                            <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">{Title}</span>
                         </a>
                     </div>
                     <div className="flex items-center">

@@ -5,7 +5,7 @@ import Fisioterapeutas from "../components/Fisioterapeuta";
 export default function Fisioterapeuta(){
     return(
         <>
-        <Navbar/>
+        <Navbar  Title={"Fisioterapeutas"}/>
         <Sidebar/>
         <Fisioterapeutas/>
         </>

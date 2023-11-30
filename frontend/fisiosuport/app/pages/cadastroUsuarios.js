@@ -5,7 +5,7 @@ import CadastradoUsuarios from "../components/CadastradoUsuarios";
 export default function CadastrardoUsuarios(){
     return(
         <>
-        <Navbar/>
+        <Navbar Title={"Cadastrar Usuarios"}/>
         <Sidebar/>
         <CadastradoUsuarios/>
         </>
