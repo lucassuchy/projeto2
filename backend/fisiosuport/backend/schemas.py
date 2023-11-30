@@ -4,6 +4,15 @@ from sqlalchemy import  Column, ForeignKey, Integer, BigInteger
 from sqlalchemy.orm import relationship
 from datetime import date
 
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: str | None = None
+
 # Type
 class TypeBase(BaseModel):
     name: str
@@ -53,6 +62,9 @@ class UserUpdate(UserBase):
     type_id: Optional[int] = None
     password: Optional[str] = None
     birth_date: Optional[date] = None
+
+class UserInDB(UserBase):
+    password: str
 
 # specialty
 class SpecialtyBase(BaseModel):

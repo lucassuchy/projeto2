@@ -2,6 +2,13 @@ from sqlalchemy.orm import Session, aliased
 
 from . import models, schemas
 
+## Autenticação
+# fde413883fbb8f6a6268c2c226831eced7257371109799be88ffbed5e8c13465
+
+
+
+
+## API
 
 def get_user(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()

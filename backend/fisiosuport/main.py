@@ -1,8 +1,8 @@
 from fastapi import Depends, FastAPI, HTTPException, File, UploadFile
 from .backend import crud, models
 from sqlalchemy.orm import Session
-from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
+import  jwt
 
 from .backend import schemas, crud, models
 from .database import SessionLocal, engine
@@ -15,6 +15,7 @@ app = FastAPI()
 origins = [
     "*"
 ]
+
 
 app.add_middleware(
     CORSMiddleware,

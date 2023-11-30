@@ -3,12 +3,14 @@ import Fisioterapeuta from '../pages/fisioterapeuta'
 import CadastradarUsuarios from "../pages/cadastroUsuarios";
 import Paciente from "../pages/pacientes";
 import CadastrardoPacientes from "../pages/CadatroPaciente";
+import Home from "../pages/home";
 
 
 export default function Routers() {
     return (
       <BrowserRouter>
         <Routes>
+        <Route path="/" element={<Home />} />
           <Route path="/fisioterapeuta" element={<Fisioterapeuta />} />
           <Route path="/cadastroUsuarios" element={<CadastradarUsuarios />}/>
           <Route path="/paciente" element={<Paciente/>}/>
