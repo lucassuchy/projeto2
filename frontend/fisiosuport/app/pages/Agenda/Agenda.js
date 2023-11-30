@@ -1,8 +1,14 @@
 "use client";
+ import Navbar from "@/app/components/navbar";
+ import Sidebar from "@/app/components/sidebar";
+ import "./style.css";
+ import "./scripAgenda";
 
 export default function Agenda() {
   return (
     <div>
+       <Navbar></Navbar>
+       <Sidebar></Sidebar>
       <div class="container">
         <div class="left">
           <div class="calendar">

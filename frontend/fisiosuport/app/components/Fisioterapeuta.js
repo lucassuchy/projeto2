@@ -8,7 +8,7 @@ export default function InicialFisioterapeuta() {
     const [listaFisioterapeutas, setlistaFisioterapeutas] = useState([]);
 
     useEffect(() => { 
-            axios.get('http://localhost:8000/physiotherapist/')
+            axios.get('http://15.228.49.213:8080/physiotherapist/')
             .then(function (response) {  
                 setlistaFisioterapeutas(response.data);})
     }, []);
