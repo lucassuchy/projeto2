@@ -3,12 +3,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 
-export default function InicialFisioterapeuta() {
+export default function Fisioterapeutas() {
 
+    const url = 'http://localhost:8000'
+    let endpoint = url.concat('/physiotherapist/')
+    
     const [listaFisioterapeutas, setlistaFisioterapeutas] = useState([]);
 
     useEffect(() => { 
-            axios.get('http://15.228.49.213:8080/physiotherapist/')
+            axios.get(endpoint)
             .then(function (response) {  
                 setlistaFisioterapeutas(response.data);})
     }, []);

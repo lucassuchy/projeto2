@@ -1,13 +1,13 @@
 import Navbar from "../components/navbar";
 import Sidebar from "../components/sidebar";
-import Fisioterapeutas from "../components/Fisioterapeuta";
+import Pacientes from "../components/Paciente";
 
-export default function Fisioterapeuta(){
+export default function Paciente(){
     return(
         <>
         <Navbar/>
         <Sidebar/>
-        <Fisioterapeutas/>
+        <Pacientes/>
         </>
     )
 }
