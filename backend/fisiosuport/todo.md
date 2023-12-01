@@ -1,3 +1,10 @@
 - Todo
- - Remover password do retorno do get
- - Pesquisas usar upper nos dois lados e trim 
+ - Finalizar tela de login
+ - Criar tela de home
+ - Criar tela de seleção de videos e criação de tratamentos
+    - O nome aqui ta virado mas azar
+    - Tela de edição
+ - Tela para edição dos pacientes
+    - Se der tela para edição dos fisioterapeutas
+ - Tela de visuzalização para o paciente
+    - Visualização sem login

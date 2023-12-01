@@ -182,3 +182,48 @@ class PatientOut(BaseModel):
 
 
 
+## Finalizar a alteração dos schemas dos videos 
+class VideosBase(BaseModel):
+    quantity: int
+    duration: int
+    user_id: int
+    treatment_id: int
+    physiotherapist_id: int
+    
+class PatientCreate(PatientBase):
+    name: str
+    password: str
+    type_id: int
+    document: int
+    user_id: Optional[int] = None
+    birth_date: date
+    quantity: int
+    duration: int
+    treatment_id: int
+    physiotherapist_id: int
+
+class Patient(PatientBase):
+    id: int
+    user_id: int
+    treatment_id: int
+    physiotherapist_id: int
+    quantity: int
+    duration: int
+    class Config:
+        from_attributes = True
+
+class PatientUpdate(PatientBase):
+    treatment_id: Optional[int] = None
+    physiotherapist_id: Optional[int] = None
+    quantity: Optional[int] = None
+    duration: Optional[int] = None
+    
+class PatientOut(BaseModel):
+    patient_id: int
+    patient: str
+    quantity: int
+    duration: int
+    description: Optional[str] = None
+    treatment: str
+    physiotherapist_id: int
+    physiotherapist: str

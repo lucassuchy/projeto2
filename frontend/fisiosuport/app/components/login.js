@@ -2,13 +2,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-
-
 export default function Login() {
 
     const [usuario, setUsuario] = useState("");
     const [password, setPassword] = useState("");
-
     const validaUsuario = event => {
         event.preventDefault();
     const url = 'http://localhost:8000'
@@ -17,10 +14,11 @@ export default function Login() {
     const [listaUsers, setlistaUsers] = useState([]);
 
     useEffect(() => { 
-            axios.get(endpoint)
-            .then(function (response) {  
-                setlistaUsers(response.data);})
-    }, [])};
+        axios.get(endpoint)
+        .then(function (response) {  
+            setlistaUsers(response.data);})
+        }, [])
+    };
 
     return(
         <>
@@ -37,13 +35,13 @@ export default function Login() {
             <br />
             <br />
             <form onSubmit={validaUsuario}>
-                <div className="container grid place-items-center">
+                <div className="container grid place-items-center text-black">
                     <input required="" type="text" name="text" className="input" value={usuario} onChange={(ev) => setUsuario(ev.target.value)} />
                     <label className="label ">Usuário</label>
                 </div>
                 <br /><br />
-                <div className="container grid place-items-center">
-                    <input required="" id="pass" type="password" name="text" className="input" minlength="50" maxlength="200" value={password} onChange={(ev) => setPassword(ev.target.value)}/>
+                <div className="container grid place-items-center text-black">
+                    <input required="" id="pass" type="password" name="text" className="input" minlength="1" maxlength="200" value={password} onChange={(ev) => setPassword(ev.target.value)}/>
                     <label for="pass" className="label">Senha</label>
                 </div>
                 <br /><br />

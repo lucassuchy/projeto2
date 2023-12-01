@@ -1,6 +1,8 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, Date, BigInteger
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.ext.mutable import MutableDict
 
 #importa a conexão
 from ..database import Base
@@ -78,3 +80,14 @@ class Patient(Base):
 	user_id = Column(Integer, ForeignKey("users.id"))
 	physiotherapist_id = Column(Integer, ForeignKey("physiotherapist.id"))
 
+
+
+class Videos(Base):
+	__tablename__ = 'videos'
+
+	id = Column(Integer, primary_key=True, index=True)
+	name = Column(String)
+	videos = Column(MutableDict.as_mutable(JSONB))
+	created_At = Column(DateTime(timezone=True), server_default=func.now())
+	updated_at = Column(DateTime(timezone=True), server_default=func.now())
+	delete_at =  Column(DateTime(timezone=True))

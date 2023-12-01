@@ -261,7 +261,7 @@ def get_patient(db: Session, skip: int = 0, limit: int = 100):
                 .join(models.Treatment, models.Treatment.id == models.Patient.treatment_id)
                 .join(Physiotherapist_alias, models.Patient.physiotherapist_id == Physiotherapist_alias.id)
                 .offset(skip)
-                .limit(limit)
+                .limit(10)
                 .all())
 
 def get_patient_by_id(db: Session, id: int):
