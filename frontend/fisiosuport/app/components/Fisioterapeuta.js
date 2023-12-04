@@ -17,7 +17,7 @@ export default function Fisioterapeutas() {
     }, []);
     
     return(
-        listaFisioterapeutas.map((fisioterapeuta) =>
+        listaFisioterapeutas.map((fisioterapeuta) => (
         <div className="sm:ml-64">
             <div className="p-12 bg-slate-300 bg-auto border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
                 <ul role="list" className="divide-y divide-gray-100">
