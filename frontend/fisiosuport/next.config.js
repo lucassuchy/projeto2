@@ -1,14 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    async rewrites() {
-        return [
-        {
-            source: '/:any*',
-            destination: '/',
-        },
-        ];
-    },
-}
+  async rewrites() {
+    return [
+      {
+        source: "/:any*",
+        destination: "/",
+      },
+    ];
+  },
+};
 
-module.exports = nextConfig
-
+module.exports = nextConfig;
