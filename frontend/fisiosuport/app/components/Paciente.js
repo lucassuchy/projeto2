@@ -1,6 +1,8 @@
 'use client'
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 
 
 export default function Pacientes() {
@@ -25,14 +27,14 @@ export default function Pacientes() {
                         <div className="flex min-w-0">
                             <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
                             <div className="min-w-0 flex-auto">
+                            <Link to={`/editaPaciente/${paciente.patient_id}`} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">Editar</Link>
                                 <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Paciente:</b> {paciente.patient}</p>
                                 <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Quantidade de exercicios:</b> {paciente.quantity}</p>
                                 <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Duração:</b> {paciente.duration} semanas</p>
                                 <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Descrição(se houver):</b> {paciente.description}</p>
-                                <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Fisioterapeuta:</b> {paciente.physiotherapist}</p>
                             </div>
                         </div>
-                        <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                        <div className="hidden shrink-0 sm:flex sm:fle  x-col sm:items-end">
                             <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Tipo de tratamento:</b> {paciente.treatment}</p>
                             <p className="mt-1 text-xs leading-5 text-gray-500"><b>Última Sessão</b> <time datetime="2023-01-23T13:23Z">há 2 dias</time></p>
                         </div>

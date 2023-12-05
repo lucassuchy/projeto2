@@ -273,7 +273,7 @@ async def create_patient(patient: schemas.PatientCreate, db: Session = Depends(g
         raise HTTPException(status_code=400, detail="Paciente já cadastrado")
     return crud.create_patient(db=db, patient=patient)
 
-@app.get("/patient/{id}", response_model=schemas.Patient)
+@app.get("/patient/{id}", response_model=schemas.PatientOutEdit)
 async def get_patient(id: int, db: Session = Depends(get_db)):
     db_patient = crud.get_patient_by_id(db, id=id)
     if db_patient is None:

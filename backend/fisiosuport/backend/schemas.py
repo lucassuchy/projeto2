@@ -176,6 +176,20 @@ class PatientOut(BaseModel):
     class Config:
         orm_mode = True
 
+
+class PatientOutEdit(BaseModel):
+    patient_id: Union[int, None]
+    patient: Union[str, None]
+    quantity: Union[int, None]
+    duration: Union[int, None]
+    birth_date: Union[date, None]
+    document: Union[int, None]
+    description: Union[str, None]
+    treatment: Union[str, None]
+    treatment_id: Union[int, None]
+    class Config:
+        orm_mode = True
+
 ## Finalizar a alteração dos schemas dos videos 
 class VideosBase(BaseModel):
     name: Union[str, None]

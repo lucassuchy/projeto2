@@ -273,7 +273,23 @@ def get_patient(db: Session, skip: int = 0, limit: int = 100):
     return  retorno
 
 def get_patient_by_id(db: Session, id: int):
-    return db.query(models.Patient).filter(models.Patient.id == id).first()
+    retorno = (db.query(models.User.name.label('patient')
+                        , models.User.document
+                        , models.Treatment.name.label('treatment')
+                        , models.User.id.label('patient_id')
+                        , models.User.birth_date
+                        , models.Patient.quantity
+                        , models.Patient.duration
+                        , models.Treatment.name.label('treatment')
+                        , models.Treatment.id.label('treatment_id')
+                     )
+                .join(models.Patient, models.Patient.user_id == models.User.id)
+                .join(models.Treatment, models.Treatment.id == models.Patient.treatment_id)      
+                .filter(models.User.type_id == 2)
+                .filter(models.User.is_active == True)
+                .filter(models.User.id == id)
+                .first())
+    return  retorno
 
 def get_patient_by_user_id(db: Session, user_id: int):
     return db.query(models.Patient).filter(models.Patient.user_id == user_id).first()
@@ -302,7 +318,7 @@ def create_patient(db: Session, patient: schemas.PatientCreate):
     return db_patient
 
 def update_patient(db: Session, patient_id: str, patient: schemas.PatientUpdate):
-    db_patient = db.query(models.patient).filter(models.patient.id == patient_id).first()
+    db_patient = db.query(models.Patient).filter(models.Patient.id == patient_id).first()
     patient_data = patient.dict(exclude_unset=True)
     for key, value in patient_data.items():
         setattr(db_patient, key, value)
