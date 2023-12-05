@@ -54,19 +54,6 @@ class Specialty(Base):
 	updated_at = Column(DateTime(timezone=True), server_default=func.now())
 	delete_at =  Column(DateTime(timezone=True))
 
-    
-
-    
-class Treatment(Base):
-	__tablename__ = 'treatment'
-
-	id = Column(Integer, primary_key=True, index=True)
-	name = Column(String)
-	video = Column(String)
-	created_At = Column(DateTime(timezone=True), server_default=func.now())
-	updated_at = Column(DateTime(timezone=True), server_default=func.now())
-	delete_at =  Column(DateTime(timezone=True))
-
 class Patient(Base):
 	__tablename__ = 'patient'
 
@@ -83,14 +70,32 @@ class Patient(Base):
 	physiotherapist_id = Column(Integer, ForeignKey("physiotherapist.id"))
 	user = relationship("User", back_populates="patient")
 
+class Treatment(Base):
+	__tablename__ = 'treatment'
 
+	id = Column(Integer, primary_key=True, index=True)
+	name = Column(String)
+	created_At = Column(DateTime(timezone=True), server_default=func.now())
+	updated_at = Column(DateTime(timezone=True), server_default=func.now())
+	delete_at =  Column(DateTime(timezone=True))
 
 class Videos(Base):
 	__tablename__ = 'videos'
 
 	id = Column(Integer, primary_key=True, index=True)
 	name = Column(String)
-	videos = Column(MutableDict.as_mutable(JSONB))
+	url = Column(String)
 	created_At = Column(DateTime(timezone=True), server_default=func.now())
 	updated_at = Column(DateTime(timezone=True), server_default=func.now())
 	delete_at =  Column(DateTime(timezone=True))
+
+
+class Videos_Treatment(Base):
+	__tablename__ = 'videos_treatment'
+
+	id = Column(Integer, primary_key=True, index=True)
+	created_At = Column(DateTime(timezone=True), server_default=func.now())
+	updated_at = Column(DateTime(timezone=True), server_default=func.now())
+	delete_at =  Column(DateTime(timezone=True))
+	treatment_id = Column(Integer, ForeignKey("treatment.id"))
+	video_id = Column(Integer, ForeignKey("videos.id"))

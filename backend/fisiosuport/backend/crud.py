@@ -155,10 +155,14 @@ def get_treatment_by_name(db: Session, name: str):
     return db.query(models.Treatment).filter(models.Treatment.name == name).first()
 
 def create_treatment(db: Session, treatment: schemas.TreatmentCreate):
-    db_treatment = models.Treatment(name=treatment.name, video=treatment.video)
+    db_treatment = models.Treatment(name=treatment.name)
     db.add(db_treatment)
     db.commit()
     db.refresh(db_treatment)
+    db_treatment_video = models.Videos_Treatment(treatment_id = db_treatment.id, video_id = treatment.video_id)
+    db.add(db_treatment_video)
+    db.commit()
+    db.refresh(db_treatment_video)
     return db_treatment
 
 def update_treatment(db: Session, treatment_id: str, treatment: schemas.TreatmentUpdate):
@@ -204,7 +208,6 @@ def get_physiotherapist(db: Session, skip: int = 0, limit: int = 100):
                 .offset(skip)
                 .limit(limit)
                 .all())
-    print(type(retorno))
     return retorno
 
 def get_physiotherapist_by_id(db: Session, id: int):
@@ -311,5 +314,43 @@ def update_patient(db: Session, patient_id: str, patient: schemas.PatientUpdate)
 def delete_patient(db: Session, patient_id: str):
     patient = db.query(models.patient).filter(models.patient.id == patient_id).first()
     db.delete(patient)
+    db.commit()
+    return {"ok":True}
+
+
+### Videos
+
+def get_Video(db: Session, Video_id: int):
+    return db.query(models.Videos).filter(models.Videos.id == Video_id).first()
+
+def get_Video_by_name(db: Session, name: str):
+    return db.query(models.Videos).filter(models.Videos.name == name).first()
+
+def get_Videos(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Videos).offset(skip).limit(limit).all()
+
+
+# Preciso alterar aqui pra receber o id do type e o documento
+def create_Video(db: Session, Video: schemas.VideoCreate):
+    db_Video = models.Videos(name=Video.name, url = Video.url)
+    db.add(db_Video)
+    db.commit()
+    db.refresh(db_Video)
+    return db_Video
+
+def update_Video(db: Session, Video_id: str, Video: schemas.VideoUpdate):
+    db_Video = db.query(models.Videos).filter(models.Videos.id == Video_id).first()
+    Video_data = Video.dict(exclude_unset=True)
+    for key, value in Video_data.items():
+        setattr(db_Video, key, value)
+    db.add(db_Video)
+    db.commit()
+    db.refresh(db_Video)
+    return db_Video
+
+
+def delete_Video(db: Session, Video_id: str):
+    Video = db.query(models.Videos).filter(models.Videos.id == Video_id).first()
+    db.delete(Video)
     db.commit()
     return {"ok":True}

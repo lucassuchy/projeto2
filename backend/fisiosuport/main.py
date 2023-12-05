@@ -176,9 +176,9 @@ async def read_treatment(skip: int = 0, limit: int = 100, db: Session = Depends(
 
 @app.post("/treatment/", response_model=schemas.Treatment)
 async def create_treatment(treatment: schemas.TreatmentCreate, db: Session = Depends(get_db)):
-    db_treatment = crud.get_treatment_by_name(db, name=treatment.name)
-    if db_treatment:
-        raise HTTPException(status_code=400, detail="treatment já cadastrado")
+    #db_treatment = crud.get_treatment_by_name(db, name=treatment.name)
+    #if db_treatment:
+    #    raise HTTPException(status_code=400, detail="treatment já cadastrado")
     return crud.create_treatment(db=db, treatment=treatment)
 
 @app.get("/treatment/{id}", response_model=schemas.Treatment)
@@ -299,5 +299,45 @@ def delete_patient(patient_id: int, db: Session = Depends(get_db)):
     if not crud.get_patient_by_id(db, id = patient_id):
         raise HTTPException(status_code=404, detail="patient não encontrado")
     crud.delete_patient(db, patient_id = patient_id)
+    # Mudar a mensagem de retorno
+    return {"Ok": True}
+
+
+### Videos
+@app.post("/videos/", response_model=schemas.Video)
+async def create_video(video: schemas.VideoCreate, db: Session = Depends(get_db)):
+    db_video = crud.get_Video_by_name(db, name=video.name)
+    if db_video:
+        raise HTTPException(status_code=400, detail="Video já cadastrado")
+    return crud.create_Video(db=db, Video=video)
+
+@app.get("/videos/", response_model=list[schemas.Video])
+async def read_videos(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    videos = crud.get_Videos(db, skip=skip, limit=limit)
+    if not videos:
+        raise HTTPException(status_code=400, detail="Sem Videos cadastrados")
+    return videos
+
+
+@app.get("/videos/{video_id}", response_model=schemas.Video)
+async def read_video(video_id: int, db: Session = Depends(get_db)):
+    db_video = crud.get_Video(db, video_id=video_id)
+    if db_video is None:
+        raise HTTPException(status_code=404, detail="video não encontrado")
+    return db_video
+
+@app.patch("/videos/{video_id}", response_model=schemas.Video)
+async def update_video(video_id:int ,video: schemas.VideoUpdate, db: Session = Depends(get_db)):
+    db_video = crud.get_Video(db, video_id=video_id)
+    if db_video is None:
+        raise HTTPException(status_code=404, detail="video não encontrado")
+    return crud.update_Video(db=db, video=video, video_id=video_id)
+
+
+@app.delete("/videos/{video_id}")
+def delete_video(video_id: int, db: Session = Depends(get_db)):
+    if not crud.get_Video(db, video_id = video_id):
+        raise HTTPException(status_code=404, detail="video não encontrado")
+    crud.delete_Video(db, video_id = video_id)
     # Mudar a mensagem de retorno
     return {"Ok": True}
