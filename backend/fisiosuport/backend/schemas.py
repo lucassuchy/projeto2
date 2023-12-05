@@ -1,19 +1,12 @@
 from pydantic import BaseModel
-from typing import  Optional
+from typing import  Optional, Union
 from sqlalchemy import  Column, ForeignKey, Integer, BigInteger
 from sqlalchemy.orm import relationship
 from datetime import date
 
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
-
-
-class TokenData(BaseModel):
-    username: str | None = None
-
 # Type
+
+
 class TypeBase(BaseModel):
     name: str
 
@@ -22,7 +15,7 @@ class Type(TypeBase):
     name: str
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 class TypeCreate(TypeBase):
     name: str
@@ -46,7 +39,7 @@ class User(UserBase):
     birth_date: Optional[date] = None
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 class UserCreate(UserBase):
     name: str
@@ -74,7 +67,7 @@ class Specialty(SpecialtyBase):
     id: int
     name: str
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 class SpecialtyCreate(SpecialtyBase):
 	name: str	
@@ -92,7 +85,7 @@ class Treatment(TreatmentBase):
     name: str
     video: str
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 class TreatmentUpdate(TreatmentBase):
     name: Optional[str] = None
@@ -107,6 +100,8 @@ class TreatmentCreate(TreatmentBase):
 class PhysiotherapistBase(BaseModel):
     user_id: int
     specialty_id: int
+    class Config:
+        orm_mode = True
 
 class Physiotherapist(PhysiotherapistBase):
     user_id: int
@@ -130,8 +125,9 @@ class PhysiotherapistOutput(BaseModel):
     birth_date: date
     specialty: str
 
+
     class Config:
-        from_attributes = True
+        orm_mode  = True
     
 # patient
 # Preciso revisar a necessidade de relacionamento aqui
@@ -141,6 +137,8 @@ class PatientBase(BaseModel):
     user_id: int
     treatment_id: int
     physiotherapist_id: int
+    class Config:
+        orm_mode = True
     
 class PatientCreate(PatientBase):
     name: str
@@ -161,8 +159,9 @@ class Patient(PatientBase):
     physiotherapist_id: int
     quantity: int
     duration: int
+    description: Optional[str] = None
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 class PatientUpdate(PatientBase):
     treatment_id: Optional[int] = None
@@ -171,14 +170,16 @@ class PatientUpdate(PatientBase):
     duration: Optional[int] = None
     
 class PatientOut(BaseModel):
-    patient_id: int
+    
     patient: str
-    quantity: int
-    duration: int
-    description: Optional[str] = None
+    patient_id: str
+    quantity: str
+    duration: str
     treatment: str
-    physiotherapist_id: int
     physiotherapist: str
+    #description: Optional[str] = None
+    class Config:
+        orm_mode = True
 
 
 
@@ -210,7 +211,7 @@ class Patient(PatientBase):
     quantity: int
     duration: int
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 class PatientUpdate(PatientBase):
     treatment_id: Optional[int] = None
@@ -219,11 +220,11 @@ class PatientUpdate(PatientBase):
     duration: Optional[int] = None
     
 class PatientOut(BaseModel):
-    patient_id: int
-    patient: str
-    quantity: int
-    duration: int
-    description: Optional[str] = None
-    treatment: str
-    physiotherapist_id: int
-    physiotherapist: str
+    patient_id: Union[int, None]
+    patient: Union[str, None]
+    quantity: Union[int, None]
+    duration: Union[int, None]
+    description: Union[str, None]
+    treatment: Union[str, None]
+    class Config:
+        orm_mode = True

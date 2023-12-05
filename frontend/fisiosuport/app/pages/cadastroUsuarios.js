@@ -5,7 +5,7 @@ import CadastradoUsuarios from "../components/CadastradoUsuarios";
 export default function CadastrardoUsuarios(){
     return(
         <>
-        <Navbar Title={"Cadastrar Usuarios"}/>
+        <Navbar Title={"Cadastrar Usuarios"} Fisioterapeuta={"Nome Fisioterapeuta"}/>
         <Sidebar/>
         <CadastradoUsuarios/>
         </>

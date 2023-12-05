@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function Pacientes() {
 
-    const url = 'http://localhost:8000'
+    const url = 'http://52.67.213.148:8080'
     const endpoint = url.concat('/patient/')
     
     const [listaPacientes, setlistaPacientes] = useState([]);

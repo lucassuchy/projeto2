@@ -12,7 +12,6 @@ export default function Routers() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/fisioterapeuta" element={<Fisioterapeuta />} />
-          <Route path="/cadastroUsuarios" element={<CadastradarUsuarios />}/>
           <Route path="/paciente" element={<Paciente/>}/>
           <Route path="/cadastroPaciente" element={<CadastrardoPacientes />}/>
         </Routes>

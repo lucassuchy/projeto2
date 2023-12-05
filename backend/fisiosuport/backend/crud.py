@@ -1,12 +1,6 @@
-from sqlalchemy.orm import Session, aliased
+from sqlalchemy.orm import Session, aliased, load_only
 
 from . import models, schemas
-
-## Autenticação
-# fde413883fbb8f6a6268c2c226831eced7257371109799be88ffbed5e8c13465
-
-
-
 
 ## API
 
@@ -52,7 +46,10 @@ def delete_user(db: Session, user_id: str):
 
 
 def get_type(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Types).offset(skip).limit(limit).all()
+    retorno = db.query(models.Types).offset(skip).limit(limit).all()
+    print(retorno)
+    print(type(retorno))
+    return retorno
 
 def get_type_by_id(db: Session, id: int):
     return db.query(models.Types).filter(models.Types.id == id).first()
@@ -187,19 +184,28 @@ def get_physiotherapist(db: Session, skip: int = 0, limit: int = 100):
             inner join physiotherapist b on a.id = b.user_id
             inner join specialty c on b.specialty_id = c.id 
     '''
-    # specialty = aliased(models.Specialty.name, name="specialty")
-    return (db.query(models.User.id.label('id')
+    '''
+    models.User.id.label('id')
+                    , models.User.name
+                    , models.User.document
+                    , models.User.birth_date
+                    , models.Specialty.name.label('specialty')
+    '''
+    retorno = (db.query(models.User, )
+                .join(models.Physiotherapist, models.User.id == models.Physiotherapist.user_id)
+                .join(models.Specialty, models.Physiotherapist.specialty_id == models.Specialty.id)
+                .with_entities(models.User.id.label('id')
                     , models.User.name
                     , models.User.document
                     , models.User.birth_date
                     , models.Specialty.name.label('specialty'))
-                .join(models.Physiotherapist, models.User.id == models.Physiotherapist.user_id)
-                .join(models.Specialty, models.Physiotherapist.specialty_id == models.Specialty.id)
                 .filter(models.User.type_id == 1)
                 .filter(models.User.is_active == True)
                 .offset(skip)
                 .limit(limit)
                 .all())
+    print(type(retorno))
+    return retorno
 
 def get_physiotherapist_by_id(db: Session, id: int):
     return db.query(models.User).filter(models.User.id == id).first()
@@ -246,23 +252,22 @@ def get_patient(db: Session, skip: int = 0, limit: int = 100):
             inner join treatment c on a.treatment_id = c.id
             inner join users d on a.physiotherapist_id = d.id;
     '''
-    Physiotherapist_alias = aliased(models.User, name='Physiotherapist_alias')
 
-    return (db.query(models.User.name.label('patient')
-                    , models.User.id.label('patient_id')
-                    , models.Patient.quantity
-                    , models.Patient.duration
-                    , models.Treatment.name.label('treatment')
-                    , models.Physiotherapist.id.label('physiotherapist_id')
-                    , Physiotherapist_alias.name.label('physiotherapist')
-                    , models.Patient.description
-                    )
+    retorno = (db.query(models.User.name.label('patient')
+                        , models.Treatment.name.label('treatment')
+                        , models.User.id.label('patient_id')
+                        , models.Patient.quantity
+                        , models.Patient.duration
+                        , models.Treatment.name.label('treatment')
+                     )
                 .join(models.Patient, models.Patient.user_id == models.User.id)
-                .join(models.Treatment, models.Treatment.id == models.Patient.treatment_id)
-                .join(Physiotherapist_alias, models.Patient.physiotherapist_id == Physiotherapist_alias.id)
+                .join(models.Treatment, models.Treatment.id == models.Patient.treatment_id)      
+                .filter(models.User.type_id == 2)
+                .filter(models.User.is_active == True)
+                .limit(limit)
                 .offset(skip)
-                .limit(10)
                 .all())
+    return  retorno
 
 def get_patient_by_id(db: Session, id: int):
     return db.query(models.Patient).filter(models.Patient.id == id).first()

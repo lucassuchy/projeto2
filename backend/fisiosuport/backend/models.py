@@ -21,6 +21,8 @@ class User(Base):
 
 	type_id = Column(Integer, ForeignKey("type.id"))
 	physiotherapists = relationship("Physiotherapist", back_populates="user")
+	patient = relationship("Patient", back_populates="user")
+
 
 class Physiotherapist(Base):
 	__tablename__ = 'physiotherapist'
@@ -79,6 +81,7 @@ class Patient(Base):
 	treatment_id = Column(Integer, ForeignKey("treatment.id"))
 	user_id = Column(Integer, ForeignKey("users.id"))
 	physiotherapist_id = Column(Integer, ForeignKey("physiotherapist.id"))
+	user = relationship("User", back_populates="patient")
 
 
 

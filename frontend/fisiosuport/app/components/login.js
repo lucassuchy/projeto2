@@ -7,7 +7,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const validaUsuario = (event) => {
     event.preventDefault();
-    const url = "http://localhost:8000";
+    const url = "http://52.67.213.148:8080";
     let endpoint = url.concat("/users/");
 
     const [listaUsers, setlistaUsers] = useState([]);

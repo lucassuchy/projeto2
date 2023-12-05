@@ -1,4 +1,5 @@
 from fastapi import Depends, FastAPI, HTTPException, File, UploadFile
+from fastapi.responses import JSONResponse
 from .backend import crud, models
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
@@ -254,6 +255,11 @@ def delete_physiotherapist(physiotherapist_id: int, db: Session = Depends(get_db
     # Mudar a mensagem de retorno
     return {"Ok": True}
 
+
+#@app.get("/physiotherapist/", response_model=list[schemas.PhysiotherapistOutput])
+#async def read_physiotherapist(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+#    type = crud.get_physiotherapist(db, skip=skip, limit=limit)
+#    return type
 # patient
 @app.get("/patient/", response_model=list[schemas.PatientOut])
 async def read_patient(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
