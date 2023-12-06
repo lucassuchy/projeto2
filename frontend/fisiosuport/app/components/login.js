@@ -9,18 +9,25 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [login, setLogin] = useState("");
   const navigate = useNavigate();
-  const url = "http://52.67.213.148:8080";
-  let endpoint = url.concat("/users/documento/").concat(usuario);
+  const url = "http://18.231.170.222:8080";
+  let endpoint = url.concat("/user_login/");
 
 
   // To com problema pra ele chamar o usuario no banco e validar
   // Posso mudar pra fazer uma requisição pro back e validar no back, retorna true ou alguma coisa assim
   
-  useEffect(() => {
-    axios.get(endpoint).then(function (response) {
-      setLogin(response.data);
-    });
-  }, []);
+  axios({
+    method: "post",
+    url: endpoint,
+    data: {
+      name: name,
+      password: "passwordUsuarios",
+    },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
 
   const validaUsuario = (event) => {
     event.preventDefault();

@@ -167,10 +167,11 @@ def create_treatment(db: Session, treatment: schemas.TreatmentCreate):
     db.add(db_treatment)
     db.commit()
     db.refresh(db_treatment)
-    db_treatment_video = models.Videos_Treatment(treatment_id = db_treatment.id, video_id = treatment.video_id)
-    db.add(db_treatment_video)
-    db.commit()
-    db.refresh(db_treatment_video)
+    for videos in treatment.video_id:
+        db_treatment_video = models.Videos_Treatment(treatment_id = db_treatment.id, video_id = videos)
+        db.add(db_treatment_video)
+        db.commit()
+        db.refresh(db_treatment_video)
     return db_treatment
 
 def update_treatment(db: Session, treatment_id: str, treatment: schemas.TreatmentUpdate):

@@ -68,7 +68,7 @@ async def read_user(user_id: int, db: Session = Depends(get_db)):
 
 @app.post("/user_login/", response_model=schemas.UserLogin)
 async def login_user(user: schemas.UserLoginCreate, db: Session = Depends(get_db)):
-    return crud.create_user(db=db, user=user)
+    return crud.login_user(db=db, user=user)
 
 
 @app.patch("/users/{user_id}", response_model=schemas.User)

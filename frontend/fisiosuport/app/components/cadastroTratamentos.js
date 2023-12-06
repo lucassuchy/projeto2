@@ -1,17 +1,22 @@
 "use client";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate  } from "react-router-dom";
 import Select from 'react-select';
 
 export default function CadastradoTratamento() {
   const [name, setName] = useState("");
-  const [video_id, setVideo_id] = useState("")
-  const url = "http://52.67.213.148:8080"
+  const [video_id, setVideo_id] = useState([])
+  const url = "http://18.231.170.222:8080"
+  const navigate = useNavigate();
+
 
   // Novo usuario
   const novoTratamento = (event) => {
     event.preventDefault();
     
+    console.log("v",video_id);
+
     axios({
       method: "post",
       url: url.concat("/treatment/"),
@@ -25,7 +30,13 @@ export default function CadastradoTratamento() {
         "Content-Type": "application/json",
       },
     })
-    navigate("/tratamento");
+    navigate("/paciente");
+  };
+
+        // Copiei do rocketlog
+  var handleChange = (video) => {
+    setVideo_id(video.map(valor => valor.value));
+    console.log("2",video_id);
   };
 
   // Busca os dados de pacientes cadastrados
@@ -38,6 +49,9 @@ export default function CadastradoTratamento() {
       setlistaTreatment(response.data);
     });
   }, []);
+
+
+
 
   // Busca os dados de pacientes cadastrados
   let endpoint_videos = url.concat("/videos/");
@@ -81,9 +95,10 @@ export default function CadastradoTratamento() {
                   Videos:
                 </label>
                 <Select
-                  defaultValue={setVideo_id}
+                  defaultValue={video_id}
                   isMulti
-                  onChange={video_id}
+                  className="dark:text-black"
+                  onChange={handleChange}
                   options={listVideos}
                 />
 

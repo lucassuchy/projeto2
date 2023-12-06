@@ -15,7 +15,7 @@ export default function CadastraExercicios() {
 
         axios({
             method: 'post',
-            url: 'http://localhost:8000/users/',
+            url: 'http://18.231.170.222:8080/users/',
             data: {
                 name: name,
                 password: password,

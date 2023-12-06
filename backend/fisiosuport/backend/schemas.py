@@ -43,7 +43,7 @@ class User(UserBase):
 
 
 
-class UserLogin(UserBase):
+class UserLogin(BaseModel):
     document: int
     password: str
     class Config:
@@ -105,7 +105,7 @@ class TreatmentUpdate(TreatmentBase):
     
 class TreatmentCreate(TreatmentBase):
     name: str
-    video_id: int
+    video_id: list 
 
 
     

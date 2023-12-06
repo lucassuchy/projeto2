@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 export default function Pacientes() {
 
-    const url = 'http://52.67.213.148:8080'
+    const url = 'http://18.231.170.222:8080'
     const endpoint = url.concat('/patient/')
     
     const [listaPacientes, setlistaPacientes] = useState([]);
@@ -36,7 +36,6 @@ export default function Pacientes() {
                         </div>
                         <div className="hidden shrink-0 sm:flex sm:fle  x-col sm:items-end">
                             <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Tipo de tratamento:</b> {paciente.treatment}</p>
-                            <p className="mt-1 text-xs leading-5 text-gray-500"><b>Última Sessão</b> <time datetime="2023-01-23T13:23Z">há 2 dias</time></p>
                         </div>
                     </li>
                 </ul>

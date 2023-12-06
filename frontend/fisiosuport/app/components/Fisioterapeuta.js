@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function Fisioterapeutas() {
-  const url = "http://52.67.213.148:8080";
+  const url = "http://18.231.170.222:8080";
   let endpoint = url.concat("/physiotherapist/");
 
   const [listaFisioterapeutas, setlistaFisioterapeutas] = useState([]);
