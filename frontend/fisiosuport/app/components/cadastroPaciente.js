@@ -18,7 +18,7 @@ export default function CadastradoPaciente() {
 
     axios({
       method: "post",
-      url: "http://localhost:8000/patient/",
+      url: "http://52.67.213.148:8080/patient/",
       data: {
         name: name,
         password: "passwordUsuarios",
@@ -43,7 +43,7 @@ export default function CadastradoPaciente() {
   };
 
   // Busca os dados
-  const url = "http://localhost:8000";
+  const url = "http://52.67.213.148:8080";
   let endpoint_physiotherapist = url.concat("/physiotherapist/");
 
   const [listaFisioterapeutas, setlistaFisioterapeutas] = useState([]);

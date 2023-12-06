@@ -311,7 +311,7 @@ async def create_video(video: schemas.VideoCreate, db: Session = Depends(get_db)
         raise HTTPException(status_code=400, detail="Video já cadastrado")
     return crud.create_Video(db=db, Video=video)
 
-@app.get("/videos/", response_model=list[schemas.Video])
+@app.get("/videos/", response_model=list[schemas.VideoOutput])
 async def read_videos(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     videos = crud.get_Videos(db, skip=skip, limit=limit)
     if not videos:

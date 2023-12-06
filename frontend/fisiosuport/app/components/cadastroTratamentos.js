@@ -1,63 +1,34 @@
 "use client";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import CardVideos from "./cardVideos";
+import Select from 'react-select';
 
 export default function CadastradoTratamento() {
   const [name, setName] = useState("");
-  const [documento, setDocumento] = useState(0);
-  const [birth_date, setBirth_date] = useState(0);
-  const [fisioterapeuta_id, setfisioterapeuta_id] = useState(0);
-  const [quantity, setQuantity] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [treatment, setTreatment] = useState(0);
-  const [description, setdescription] = useState("");
-
-  const url = "http://52.67.213.148:8080";
+  const [video_id, setVideo_id] = useState("")
+  const url = "http://52.67.213.148:8080"
 
   // Novo usuario
   const novoTratamento = (event) => {
     event.preventDefault();
-
-    let endpoint = url.concat("/patient/");
-
+    
     axios({
       method: "post",
-      url: endpoint,
+      url: url.concat("/treatment/"),
       data: {
         name: name,
-        password: "passwordUsuarios",
-        document: documento,
-        type_id: "2",
-        birth_date: birth_date,
-        quantity: quantity,
-        duration: duration,
-        treatment_id: treatment,
-        description: description,
-        physiotherapist_id: fisioterapeuta_id,
+        video_id: video_id
+
       },
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
     })
-      .then(function (response) {
-        console.log("Usuario " + response.data.id + " cadastrado com sucesso!");
-      })
-      .catch((err) => console.log(err));
+    navigate("/tratamento");
   };
 
-  // Busca os dados
-  let endpoint_videos = url.concat("/videos/");
-
-  const [listaVideos, setlistaVideos] = useState([]);
-
-  useEffect(() => {
-    axios.get(endpoint_videos).then(function (response) {
-      setlistaVideos(response.data);
-    });
-  }, []);
-
+  // Busca os dados de pacientes cadastrados
   let endpoint_treatment = url.concat("/treatment/");
 
   const [listatreatment, setlistaTreatment] = useState([]);
@@ -68,19 +39,65 @@ export default function CadastradoTratamento() {
     });
   }, []);
 
+  // Busca os dados de pacientes cadastrados
+  let endpoint_videos = url.concat("/videos/");
+
+  const [listVideos, setlistVideos] = useState([]);
+
+  useEffect(() => {
+    axios.get(endpoint_videos).then(function (response) {
+      setlistVideos(response.data);
+    });
+    
+  }, []);
   return (
     <div className="p-4 sm:ml-64">
       <div className="p-16 bg-gray-800 bg-auto border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-10">
         <div className="grid grid-cols-1 gap-0 mb-0">
+          <form onSubmit={novoTratamento}>
             <div className="grid gap-10 mb-10 md:grid-cols-2">
-              <div>
-                  {listaVideos.map((video) => (
-                    <CardVideos video={video}/>
-                  ))}
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>
+            <div>
+                <label
+                  htmlFor="birth_date"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Nome Tratamento:
+                </label>
+                <input
+                  name="name"
+                  type="text"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Tratamento"
+                  value={name}
+                  onChange={(ev) => setName(ev.target.value)}
+                />
+              </div>
+              <br />
+            <div>
+                <label
+                  htmlFor="type_id"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Videos:
+                </label>
+                <Select
+                  defaultValue={setVideo_id}
+                  isMulti
+                  onChange={video_id}
+                  options={listVideos}
+                />
+
+              </div>
+              <br/>
+              <input
+                type="submit"
+                value="Salvar"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              ></input>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }

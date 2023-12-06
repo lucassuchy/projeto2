@@ -209,3 +209,9 @@ class VideoUpdate(VideosBase):
 class VideoCreate(VideosBase):
     name: Optional[str] = None
     url: Optional[str] = None
+
+class VideoOutput(BaseModel):
+    value: Union[int, None]
+    label: Union[str, None]
+    class Config:
+        orm_mode = True

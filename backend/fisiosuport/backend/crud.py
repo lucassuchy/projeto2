@@ -343,7 +343,8 @@ def get_Video_by_name(db: Session, name: str):
     return db.query(models.Videos).filter(models.Videos.name == name).first()
 
 def get_Videos(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Videos).offset(skip).limit(limit).all()
+    return db.query(models.Videos.id.label('value')
+                    , models.Videos.name.label('label')).offset(skip).limit(limit).all()
 
 
 # Preciso alterar aqui pra receber o id do type e o documento
