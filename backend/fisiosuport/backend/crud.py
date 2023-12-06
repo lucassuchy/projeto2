@@ -27,6 +27,14 @@ def create_user(db: Session, user: schemas.UserCreate):
     db.refresh(db_user)
     return db_user
 
+# Preciso alterar aqui pra receber o id do type e o documento
+def login_user(db: Session, user: schemas.UserLogin):
+    db_user = db.query(models.User).filter(models.User.document == user.document).first()
+    if db_user.password == user.password:
+        return {"ok":True}
+    else:
+        return {"ok":False}
+
 def update_user(db: Session, user_id: str, user: schemas.UserUpdate):
     db_user = db.query(models.User).filter(models.User.id == user_id).first()
     user_data = user.dict(exclude_unset=True)

@@ -41,6 +41,21 @@ class User(UserBase):
     class Config:
         orm_mode = True
 
+
+
+class UserLogin(UserBase):
+    document: int
+    password: str
+    class Config:
+        orm_mode = True
+
+class UserLoginCreate(UserBase):
+    document: int
+    password: str
+    class Config:
+        orm_mode = True
+
+
 class UserCreate(UserBase):
     name: str
     password: str

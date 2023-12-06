@@ -66,6 +66,11 @@ async def read_user(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User não encontrado")
     return db_user
 
+@app.post("/user_login/", response_model=schemas.UserLogin)
+async def login_user(user: schemas.UserLoginCreate, db: Session = Depends(get_db)):
+    return crud.create_user(db=db, user=user)
+
+
 @app.patch("/users/{user_id}", response_model=schemas.User)
 async def update_user(user_id:int ,user: schemas.UserUpdate, db: Session = Depends(get_db)):
     db_user = crud.get_user(db, user_id=user_id)
