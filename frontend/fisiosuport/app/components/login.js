@@ -1,22 +1,34 @@
 "use client";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate  } from "react-router-dom";
+
 
 export default function Login() {
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
+  const [login, setLogin] = useState("");
+  const navigate = useNavigate();
+  const url = "http://52.67.213.148:8080";
+  let endpoint = url.concat("/users/documento/").concat(usuario);
+
+
+  // To com problema pra ele chamar o usuario no banco e validar
+  // Posso mudar pra fazer uma requisição pro back e validar no back, retorna true ou alguma coisa assim
+  
+  useEffect(() => {
+    axios.get(endpoint).then(function (response) {
+      setLogin(response.data);
+    });
+  }, []);
+
   const validaUsuario = (event) => {
     event.preventDefault();
-    const url = "http://52.67.213.148:8080";
-    let endpoint = url.concat("/users/");
 
-    const [listaUsers, setlistaUsers] = useState([]);
-
-    useEffect(() => {
-      axios.get(endpoint).then(function (response) {
-        setlistaUsers(response.data);
-      });
-    }, []);
+    console.log(login)
+    if (login.password == password){
+      navigate("/paciente");
+    }
   };
 
   return (
@@ -50,7 +62,7 @@ export default function Login() {
         </div>
         <br />
         <br />
-        <label for="label_senha" className="label">
+        <label htmlFor="label_senha" className="label">
           Senha
         </label>
         <div className="container grid place-items-center text-black">
@@ -60,8 +72,8 @@ export default function Login() {
             type="password"
             name="text"
             className="input"
-            minlength="50"
-            maxlength="200"
+            minLength="1"
+            maxLength="200"
             value={password}
             onChange={(ev) => setPassword(ev.target.value)}
           />
