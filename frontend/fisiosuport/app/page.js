@@ -6,7 +6,7 @@ import Routers from './router/router'
 
 export default function Home() {
   return (
-    <>
+    <> 
         <Routers>
           <Sidebar/>
         </Routers>

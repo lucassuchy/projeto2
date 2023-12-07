@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useNavigate } from "react";
 
 export default function CadastradoPaciente() {
   const [name, setName] = useState("");
@@ -39,7 +39,7 @@ export default function CadastradoPaciente() {
     })
       .then(function (response) {
         console.log("Usuario " + response.data.id + " cadastrado com sucesso!");
-      })
+      }).then(navigate("/paciente"))
       .catch((err) => console.log(err));
   };
 

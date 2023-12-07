@@ -1,8 +1,9 @@
 "use client";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext, useNavigate } from "react";
 
 export default function Fisioterapeutas() {
+
   const url = "http://18.231.170.222:8080";
   let endpoint = url.concat("/physiotherapist/");
 

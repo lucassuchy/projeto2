@@ -66,7 +66,7 @@ async def read_user(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User não encontrado")
     return db_user
 
-@app.post("/user_login/", response_model=schemas.UserLogin)
+@app.post("/login/")
 async def login_user(user: schemas.UserLoginCreate, db: Session = Depends(get_db)):
     return crud.login_user(db=db, user=user)
 

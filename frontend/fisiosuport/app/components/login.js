@@ -1,41 +1,17 @@
 "use client";
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate  } from "react-router-dom";
+import { useAuth } from "./autenticacao";
 
 
 export default function Login() {
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
-  const [login, setLogin] = useState("");
-  const navigate = useNavigate();
-  const url = "http://18.231.170.222:8080";
-  let endpoint = url.concat("/user_login/");
+  const { Login } = useAuth();
 
-
-  // To com problema pra ele chamar o usuario no banco e validar
-  // Posso mudar pra fazer uma requisição pro back e validar no back, retorna true ou alguma coisa assim
-  
-  axios({
-    method: "post",
-    url: endpoint,
-    data: {
-      name: name,
-      password: "passwordUsuarios",
-    },
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  })
 
   const validaUsuario = (event) => {
     event.preventDefault();
-
-    console.log(login)
-    if (login.password == password){
-      navigate("/paciente");
-    }
+      Login( usuario,password);
   };
 
   return (

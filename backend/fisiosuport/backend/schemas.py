@@ -49,7 +49,7 @@ class UserLogin(BaseModel):
     class Config:
         orm_mode = True
 
-class UserLoginCreate(UserBase):
+class UserLoginCreate(BaseModel):
     document: int
     password: str
     class Config:

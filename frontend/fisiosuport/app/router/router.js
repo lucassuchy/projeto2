@@ -9,6 +9,8 @@ import EditaPacientes from "../pages/editaPaciente";
 
 
 export default function Routers() {
+
+
     return (
       <BrowserRouter>
         <Routes>
