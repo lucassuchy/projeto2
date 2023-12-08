@@ -15,7 +15,7 @@ export default function CadastradoUsuarios() {
 
         axios({
             method: 'post',
-            url: 'http://18.231.170.222:8080/users/',
+            url: 'http://18.230.187.219:8080/users/',
             data: {
                 name: name,
                 password: password,

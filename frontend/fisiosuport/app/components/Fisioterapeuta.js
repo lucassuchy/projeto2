@@ -4,7 +4,7 @@ import { useEffect, useState,useContext, useNavigate } from "react";
 
 export default function Fisioterapeutas() {
 
-  const url = "http://18.231.170.222:8080";
+  const url = "http://18.230.187.219:8080";
   let endpoint = url.concat("/physiotherapist/");
 
   const [listaFisioterapeutas, setlistaFisioterapeutas] = useState([]);
@@ -34,13 +34,6 @@ export default function Fisioterapeutas() {
                   {fisioterapeuta.specialty}
                 </p>
               </div>
-            </div>
-            <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-              <p className="text-sm leading-6 text-gray-900">Lesão de Joelho</p>
-              <p className="mt-1 text-xs leading-5 text-gray-500">
-                Última Sessão{" "}
-                <time datetime="2023-01-23T13:23Z">há 2 dias</time>
-              </p>
             </div>
           </li>
         </ul>

@@ -7,6 +7,9 @@ export default function Paciente(){
         <>
         <Navbar  Title={"Pacientes"} Fisioterapeuta={"Nome Fisioterapeuta"}/>
         <Sidebar/>
+        <br/>
+        <br/>
+        <br/>
         <Pacientes/>
         </>
     )

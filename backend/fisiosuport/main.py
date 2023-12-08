@@ -323,6 +323,13 @@ async def read_videos(skip: int = 0, limit: int = 100, db: Session = Depends(get
         raise HTTPException(status_code=400, detail="Sem Videos cadastrados")
     return videos
 
+@app.get("/exercicios/", response_model=list[schemas.Video])
+async def read_videos(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    videos = crud.get_exercicios(db, skip=skip, limit=limit)
+    if not videos:
+        raise HTTPException(status_code=400, detail="Sem Videos cadastrados")
+    return videos
+
 
 @app.get("/videos/{video_id}", response_model=schemas.Video)
 async def read_video(video_id: int, db: Session = Depends(get_db)):

@@ -9,7 +9,7 @@ export default function EditaPaciente() {
   const params= useParams()
   const patient_id = params.patient_id
   const navigate = useNavigate();
-  const url = "http://18.231.170.222:8080";
+  const url = "http://18.230.187.219:8080";
   // Paciente
   let patient_endpoint = url.concat("/patient/").concat(patient_id);
   const [listaPatient, setlistaPatient] = useState([]);

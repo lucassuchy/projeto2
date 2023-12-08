@@ -11,7 +11,7 @@ export default function CadastradoPaciente() {
   const [duration, setDuration] = useState(0);
   const [treatment, setTreatment] = useState(0);
   const [description, setdescription] = useState("");
-  const url = "http://18.231.170.222:8080"
+  const url = "http://18.230.187.219:8080"
 
   // Novo usuario
   const novoPaciente = (event) => {

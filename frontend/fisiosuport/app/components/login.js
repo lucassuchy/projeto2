@@ -1,17 +1,20 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useAuth } from "./autenticacao";
+import {  useState } from "react";
+import { useNavigate  } from "react-router-dom";
+
+
 
 
 export default function Login() {
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
-  const { Login } = useAuth();
+  const navigate = useNavigate();
 
 
   const validaUsuario = (event) => {
     event.preventDefault();
-      Login( usuario,password);
+    
+    navigate("/paciente");
   };
 
   return (

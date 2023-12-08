@@ -270,6 +270,7 @@ def get_patient(db: Session, skip: int = 0, limit: int = 100):
                         , models.User.id.label('patient_id')
                         , models.Patient.quantity
                         , models.Patient.duration
+                        , models.Patient.description
                         , models.Treatment.name.label('treatment')
                      )
                 .join(models.Patient, models.Patient.user_id == models.User.id)
@@ -354,6 +355,10 @@ def get_Video_by_name(db: Session, name: str):
 def get_Videos(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Videos.id.label('value')
                     , models.Videos.name.label('label')).offset(skip).limit(limit).all()
+
+
+def get_exercicios(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Videos).offset(skip).limit(limit).all()
 
 
 # Preciso alterar aqui pra receber o id do type e o documento

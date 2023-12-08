@@ -1,10 +1,16 @@
-import Login from "../components/login";
+import Navbar from "../components/navbar";
+import Sidebar from "../components/sidebar";
+import Home from "../components/Home";
 
-
-export default function Home(){
+export default function Homes(){
     return(
         <>
-        <Login/>
+        <br/>
+        <br/>
+        <br/>
+        <Navbar Title={"Fisiosuport"}/>
+        <Sidebar/>
+        <Home/>
         </>
     )
 }

@@ -1,34 +1,44 @@
 'use client'
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import CardVideos from "./cardVideos";
 
 
 
-export default function Pacientes() {
+export default function Home() {
 
     const url = 'http://18.230.187.219:8080'
-    const endpoint = url.concat('/patient/')
+    const endpoint_patient = url.concat('/patient/')
     
     const [listaPacientes, setlistaPacientes] = useState([]);
 
     useEffect(() => { 
-            axios.get(endpoint)
+            axios.get(endpoint_patient)
             .then(function (response) {  
                 setlistaPacientes(response.data);})
     }, []);
+
+    const endpoint_videos = url.concat('/exercicios/')
+  
+    const [listaExercicios, setlistaExercicios] = useState([]);
+  
+    useEffect(() => { 
+            axios.get(endpoint_videos)
+            .then(function (response) {  
+              setlistaExercicios(response.data);})
+    }, []);
     
     return(
-        listaPacientes.map((paciente) =>
-        <div className="sm:ml-64">
-            <div className="p-12 bg-slate-300 bg-auto border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+        <div className="gap-4 flex inset-y-10 sm:ml-64">
+            
+            <div className="w-1/2 p-12 bg-slate-300 bg-auto border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+            <h1>Pacientes Recentes:</h1>
+            {listaPacientes.map((paciente) =>
                 <ul role="list" className="divide-y divide-gray-100">
                     <li className="flex justify-between gap-x-1 py-1">
                         <div className="flex min-w-0">
-                            <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
                             <div className="min-w-0 flex-auto">
-                            <Link to={`/editaPaciente/${paciente.patient_id}`} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">Editar</Link>
-                                <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Paciente:</b> {paciente.patient}</p>
+                            <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Paciente:</b> {paciente.patient}</p>
                                 <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Quantidade de exercicios:</b> {paciente.quantity}</p>
                                 <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Duração:</b> {paciente.duration} semanas</p>
                                 <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Descrição(se houver):</b> {paciente.description}</p>
@@ -36,10 +46,16 @@ export default function Pacientes() {
                             </div>
                         </div>
                     </li>
-                </ul>
+                </ul> )}
+            </div>
+            <div className="w-1/2 p-12 bg-slate-300 bg-auto border-0 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+            <h1> Tratamentos Recentes:</h1>
+                {listaExercicios.map((video) =>
+                <CardVideos video={video}/>
+                )
+                }
             </div>
         </div>
-        )
         
     )
 }

@@ -7,7 +7,7 @@ import Select from 'react-select';
 export default function CadastradoTratamento() {
   const [name, setName] = useState("");
   const [video_id, setVideo_id] = useState([])
-  const url = "http://18.231.170.222:8080"
+  const url = "http://18.230.187.219:8080"
   const navigate = useNavigate();
 
 

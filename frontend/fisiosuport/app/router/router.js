@@ -2,10 +2,11 @@ import { BrowserRouter, Routes, Route, useNavigate  } from "react-router-dom";
 import Fisioterapeuta from '../pages/fisioterapeuta'
 import Paciente from "../pages/pacientes";
 import CadastrardoPacientes from "../pages/CadatroPaciente";
-import Home from "../pages/home";
+import Logins from "../pages/login";
 import Exercicios from "../pages/exercicios";
 import Tratamento from "../pages/Tratamentos";
 import EditaPacientes from "../pages/editaPaciente";
+import Homes from "../pages/home";
 
 
 export default function Routers() {
@@ -14,7 +15,8 @@ export default function Routers() {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Logins />} />
+          <Route path="/home" element={<Homes />} />
           <Route path="/fisioterapeuta" element={<Fisioterapeuta />} />
           <Route path="/paciente" element={<Paciente/>}/>
           <Route path="/cadastroPaciente" element={<CadastrardoPacientes />}/>
