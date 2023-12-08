@@ -5,6 +5,7 @@ import { useNavigate  } from "react-router-dom";
 
 
 export default function CadastradoPaciente() {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [documento, setDocumento] = useState(0);
   const [birth_date, setBirth_date] = useState(0);
@@ -14,14 +15,11 @@ export default function CadastradoPaciente() {
   const [treatment, setTreatment] = useState(0);
   const [description, setdescription] = useState("");
   const url = "http://18.230.187.219:8080"
-  const navigate = useNavigate();
-
 
   // Novo usuario
   const novoPaciente = (event) => {
     event.preventDefault();
 
-    const navigate = useNavigate();
 
     axios({
       method: "post",
@@ -34,9 +32,9 @@ export default function CadastradoPaciente() {
         birth_date: birth_date,
         quantity: quantity,
         duration: duration,
-        treatment_id: treatment,
+        treatment_id: (treatment == 0)? treatment+1:treatment,
         description: description,
-        physiotherapist_id: fisioterapeuta_id,
+        physiotherapist_id: (fisioterapeuta_id == 0)?fisioterapeuta_id+1:fisioterapeuta_id  ,
       },
       headers: {
         Accept: "application/json",
@@ -46,8 +44,9 @@ export default function CadastradoPaciente() {
       .then(function (response) {
         console.log("Usuario " + response.data.id + " cadastrado com sucesso!");
       })
-      navigate("/paciente")
       .catch((err) => console.log(err));
+      navigate("/paciente")
+
   };
 
   // Busca os dados
