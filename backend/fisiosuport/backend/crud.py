@@ -30,8 +30,11 @@ def create_user(db: Session, user: schemas.UserCreate):
 # Preciso alterar aqui pra receber o id do type e o documento
 def login_user(db: Session, user: schemas.UserLogin):
     db_user = db.query(models.User).filter(models.User.document == user.document).first()
-    if db_user.password == user.password:
-        return {"ok":True}
+    if db_user:
+        if db_user.password == user.password:
+            return {"ok":True}
+        else:
+            return {"ok":False}
     else:
         return {"ok":False}
 

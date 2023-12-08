@@ -10,8 +10,17 @@ export default function CardVideos ({video}){
             </p>
             </div>
                 <div className="w3-container w3-center">
-                <iframe width="560" height="315" src={video.url} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                    <h3 className="w3-blue">
+                <div className="video-responsive">
+                    <iframe
+                    width="480"
+                    height="480"
+                    src={`${video.url}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    title="Embedded youtube"
+                    />
+                </div>                    <h3 className="w3-blue">
                     </h3>
                 </div>
             </div>

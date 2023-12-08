@@ -1,6 +1,7 @@
 "use client";
 import {  useState } from "react";
 import { useNavigate  } from "react-router-dom";
+import axios from "axios";
 
 
 
@@ -10,12 +11,35 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const url = "http://18.230.187.219:8080";
+  let endpoint = url.concat("/login/");
 
-  const validaUsuario = (event) => {
+  const validaUsuario = async (event) => {
     event.preventDefault();
+      try {
+        const res = await axios({
+          method: "post",
+          url: endpoint,
+          data: {
+            document: usuario,
+            password: password
     
-    navigate("/paciente");
-  };
+          },
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        })
+        console.log("resposta:", res.data.ok)
+        if (res.data.ok === true) {
+          navigate("/paciente");
+        }else{
+          alert("Usuario ou senha invalidos");
+        }
+      } catch (e) {
+        alert("Usuario ou senha invalidos");
+      }
+    };
 
   return (
     <>
