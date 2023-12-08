@@ -292,7 +292,7 @@ async def get_patient_name(name: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="patient não encontrado")
     return db_patient
 
-@app.patch("/patient/{id}", response_model=schemas.Patient)
+@app.patch("/patient/{id}", response_model=schemas.PatientUpdate)
 async def update_patient(id:int ,patient: schemas.PatientUpdate, db: Session = Depends(get_db)):
     db_patient = crud.get_patient_by_id(db, id=id)
     if db_patient is None:

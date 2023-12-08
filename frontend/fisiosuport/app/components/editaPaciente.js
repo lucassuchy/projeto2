@@ -19,14 +19,14 @@ export default function EditaPaciente() {
     });
   }, []);
 
-  const [name, setName] = useState(listaPatient.name);
-  const [documento, setDocumento] = useState(listaPatient.document);
-  const [birth_date, setBirth_date] = useState(listaPatient.birth_date);
+  const [name, setName = listaPatient.patient] = useState("");
+  const [documento, setDocumento] = useState(0);
+  const [birth_date, setBirth_date] = useState(0);
   const [fisioterapeuta_id, setfisioterapeuta_id] = useState(0);
-  const [quantity, setQuantity] = useState(listaPatient.quantity);
-  const [duration, setDuration] = useState(listaPatient.duration);
-  const [treatment, setTreatment] = useState(listaPatient.treatment_id);
-  const [description, setdescription] = useState(listaPatient.description);
+  const [quantity, setQuantity] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [treatment, setTreatment] = useState(0);
+  const [description, setdescription] = useState("");
 
   // Edita Usuario
   const editaPaciente = (event) => {

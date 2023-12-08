@@ -163,11 +163,18 @@ class Patient(PatientBase):
     class Config:
         orm_mode = True
 
-class PatientUpdate(PatientBase):
-    treatment_id: Optional[int] = None
-    physiotherapist_id: Optional[int] = None
-    quantity: Optional[int] = None
-    duration: Optional[int] = None  
+class PatientUpdate(BaseModel):
+    name:  Optional[str] = None
+    document:  Optional[int] = None
+    user_id: Optional[int] = None
+    description: Optional[str] = None
+    birth_date:  Optional[date] = None
+    quantity:  Optional[int] = None
+    duration:  Optional[int] = None
+    treatment_id:  Optional[int] = None
+    physiotherapist_id:  Optional[int] = None
+    class Config:
+        orm_mode = True
 
 class PatientCreate(PatientBase):
     name: str

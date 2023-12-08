@@ -121,38 +121,6 @@ def delete_specialty(db: Session, specialty_id: str):
     return {"ok":True}
 
 
-def get_patient_by_id(db: Session, id: int):
-    return db.query(models.Patient).filter(models.Patient.id == id).first()
-
-def get_patient_by_name(db: Session, name: str):
-    return db.query(models.Patient).filter(models.patient.name == name).first()
-
-
-# Adc validações
-def create_patient(db: Session, patient: schemas.PatientCreate):
-    db_patient = models.patient(name=patient.name)
-    db.add(db_patient)
-    db.commit()
-    db.refresh(db_patient)
-    return db_patient
-
-def update_patient(db: Session, patient_id: str, patient: schemas.PatientUpdate):
-    db_patient = db.query(models.Patient).filter(models.Patient.id == patient_id).first()
-    patient_data = patient.dict(exclude_unset=True)
-    for key, value in patient_data.items():
-        setattr(db_patient, key, value)
-    db.add(db_patient)
-    db.commit()
-    db.refresh(db_patient)
-    return db_patient
-
-def delete_patient(db: Session, patient_id: str):
-    patient = db.query(models.Patient).filter(models.patient.id == patient_id).first()
-    db.delete(patient)
-    db.commit()
-    return {"ok":True}
-
-
 # Treament
 
 
@@ -332,6 +300,7 @@ def create_patient(db: Session, patient: schemas.PatientCreate):
     return db_patient
 
 def update_patient(db: Session, patient_id: str, patient: schemas.PatientUpdate):
+    ## Atualiza na user
     db_patient = db.query(models.Patient).filter(models.Patient.id == patient_id).first()
     patient_data = patient.dict(exclude_unset=True)
     for key, value in patient_data.items():
@@ -339,6 +308,13 @@ def update_patient(db: Session, patient_id: str, patient: schemas.PatientUpdate)
     db.add(db_patient)
     db.commit()
     db.refresh(db_patient)
+    db_user = db.query(models.User).filter(models.User.id == patient.user_id).first()
+    user_data = patient.dict(exclude_unset=True)
+    for key, value in user_data.items():
+        setattr(db_user, key, value)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
     return db_patient
 
 def delete_patient(db: Session, patient_id: str):
