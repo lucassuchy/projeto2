@@ -324,7 +324,8 @@ def create_patient(db: Session, patient: schemas.PatientCreate):
                                 , duration = patient.duration
                                 , user_id = db_user.id
                                 , treatment_id = patient.treatment_id
-                                , physiotherapist_id = patient.physiotherapist_id)
+                                , physiotherapist_id = patient.physiotherapist_id
+                                , description = patient.description)
     db.add(db_patient)
     db.commit()
     db.refresh(db_patient)

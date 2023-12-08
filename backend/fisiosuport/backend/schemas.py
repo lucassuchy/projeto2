@@ -175,6 +175,7 @@ class PatientCreate(PatientBase):
     type_id: int
     document: int
     user_id: Optional[int] = None
+    description: Optional[str] = None
     birth_date: date
     quantity: int
     duration: int

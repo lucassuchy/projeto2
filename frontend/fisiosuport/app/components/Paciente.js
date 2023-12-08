@@ -25,14 +25,16 @@ export default function Pacientes() {
                 <ul role="list" className="divide-y divide-gray-100">
                     <li className="flex justify-between gap-x-1 py-1">
                         <div className="flex min-w-0">
-                            <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
                             <div className="min-w-0 flex-auto">
-                            <Link to={`/editaPaciente/${paciente.patient_id}`} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">Editar</Link>
+                            
                                 <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Paciente:</b> {paciente.patient}</p>
                                 <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Quantidade de exercicios:</b> {paciente.quantity}</p>
                                 <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Duração:</b> {paciente.duration} semanas</p>
                                 <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Descrição(se houver):</b> {paciente.description}</p>
-                                <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Tipo de tratamento:</b> {paciente.treatment}</p>
+                                <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Tipo de tratamento:</b> {paciente.treatment}</p><br></br>
+                                <button className="flex items-center w-25 p-3 text-white rounded-lg dark:text-blue bg-slate-900 dark:hover:bg-gray-700 group">
+                                <Link to={`/editaPaciente/${paciente.patient_id}`}>Editar</Link>
+                                </button>
                             </div>
                         </div>
                     </li>

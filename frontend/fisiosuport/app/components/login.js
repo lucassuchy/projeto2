@@ -32,7 +32,7 @@ export default function Login() {
         })
         console.log("resposta:", res.data.ok)
         if (res.data.ok === true) {
-          navigate("/paciente");
+          navigate("/home");
         }else{
           alert("Usuario ou senha invalidos");
         }
@@ -44,56 +44,57 @@ export default function Login() {
   return (
     <>
       <div className="grid place-items-center">
-        <img
-          src="/Fisiosuport_logo.png"
-          alt="Logotipo FisioSuport"
-          className="logo_inicial object-cover h-15 w-80"
-        />
-      </div>
-      <div>
-        <p className="faca_login grid place-items-center">
-          Faça login em sua conta
-        </p>
-      </div>
-      <br />
-      <br />
+  <img
+    src="/Fisiosuport_logo.png"
+    alt="Logotipo FisioSuport"
+    className="logo_inicial object-cover h-15 w-80"
+  />
+</div>
+<div>
+  <p className="faca_login grid place-items-center text-white">
+    Faça login em sua conta
+  </p>
+</div>
+<br />
+<br />
 
-      <form onSubmit={validaUsuario}>
-        <label className="labelUsuario ">Usuário</label>
-        <div className="container grid place-items-center text-black">
-          <input
-            required=""
-            type="text"
-            name="text"
-            className="input"
-            value={usuario}
-            onChange={(ev) => setUsuario(ev.target.value)}
-          />
-        </div>
-        <br />
-        <br />
-        <label htmlFor="label_senha" className="label">
-          Senha
-        </label>
-        <div className="container grid place-items-center text-black">
-          <input
-            required=""
-            id="pass"
-            type="password"
-            name="text"
-            className="input"
-            minLength="1"
-            maxLength="200"
-            value={password}
-            onChange={(ev) => setPassword(ev.target.value)}
-          />
-        </div>
-        <br />
-        <br />
-        <div className="button_enter">
-          <button>Entrar</button>
-        </div>
-      </form>
+<form onSubmit={validaUsuario} className="text-center">
+  <div className="container grid place-items-center text-white">
+    <label className="labelUsuario">Usuário</label>
+    <input
+      required=""
+      type="text"
+      name="text"
+      className="input text-black"
+      value={usuario}
+      onChange={(ev) => setUsuario(ev.target.value)}
+    />
+  </div>
+  <br />
+  <br />
+  <div className="container grid place-items-center text-white">
+    <label htmlFor="label_senha" className="label">
+      Senha
+    </label>
+    <input
+      required=""
+      id="pass"
+      type="password"
+      name="text"
+      className="input text-black"
+      minLength="1"
+      maxLength="200"
+      value={password}
+      onChange={(ev) => setPassword(ev.target.value)}
+    />
+  </div>
+  <br />
+  <br />
+  <div className="button_enter">
+    <button className="text-white rounded-lg w-48 dark:text-blue bg-slate-900 dark:hover:bg-gray-700 group">Entrar</button>
+  </div>
+</form>
+
     </>
   );
 }

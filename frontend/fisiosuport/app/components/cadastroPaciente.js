@@ -1,6 +1,8 @@
 "use client";
 import axios from "axios";
-import { useEffect, useState,useNavigate } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate  } from "react-router-dom";
+
 
 export default function CadastradoPaciente() {
   const [name, setName] = useState("");
@@ -12,10 +14,14 @@ export default function CadastradoPaciente() {
   const [treatment, setTreatment] = useState(0);
   const [description, setdescription] = useState("");
   const url = "http://18.230.187.219:8080"
+  const navigate = useNavigate();
+
 
   // Novo usuario
   const novoPaciente = (event) => {
     event.preventDefault();
+
+    const navigate = useNavigate();
 
     axios({
       method: "post",
@@ -39,7 +45,8 @@ export default function CadastradoPaciente() {
     })
       .then(function (response) {
         console.log("Usuario " + response.data.id + " cadastrado com sucesso!");
-      }).then(navigate("/paciente"))
+      })
+      navigate("/paciente")
       .catch((err) => console.log(err));
   };
 
