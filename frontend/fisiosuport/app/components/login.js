@@ -43,15 +43,15 @@ export default function Login() {
 
   return (
     <>
-      <div className="grid place-items-center">
+      <div className="flex flex-col place-items-center">
   <img
     src="/Fisiosuport_logo.png"
     alt="Logotipo FisioSuport"
     className="logo_inicial object-cover h-15 w-80"
   />
 </div>
-<div>
-  <p className="faca_login grid place-items-center text-white">
+<div className="mt-4">
+  <p className="faca_login flex flex-col place-items-center text-white">
     Faça login em sua conta
   </p>
 </div>
@@ -60,12 +60,12 @@ export default function Login() {
 
 <form onSubmit={validaUsuario} className="text-center">
   <div className="container grid place-items-center text-white">
-    <label className="labelUsuario">Usuário</label>
+    <label className="labelUsuario">Usuário</label><br></br>
     <input
       required=""
       type="text"
       name="text"
-      className="input text-black"
+      className="input text-black h-8 w-80 rounded-lg"
       value={usuario}
       onChange={(ev) => setUsuario(ev.target.value)}
     />
@@ -74,14 +74,14 @@ export default function Login() {
   <br />
   <div className="container grid place-items-center text-white">
     <label htmlFor="label_senha" className="label">
-      Senha
-    </label>
+      Senha<br></br>
+    </label><br></br>
     <input
       required=""
       id="pass"
       type="password"
       name="text"
-      className="input text-black"
+      className="input text-black h-8 w-80 rounded-lg"
       minLength="1"
       maxLength="200"
       value={password}
@@ -90,8 +90,8 @@ export default function Login() {
   </div>
   <br />
   <br />
-  <div className="button_enter">
-    <button className="text-white rounded-lg w-48 dark:text-blue bg-slate-900 dark:hover:bg-gray-700 group">Entrar</button>
+  <div className="button_enter"><br></br>
+    <button className="text-black rounded-lg w-48 h-12 text-blue bg-green-300	hover:bg-green-400 group">Entrar</button>
   </div>
 </form>
 

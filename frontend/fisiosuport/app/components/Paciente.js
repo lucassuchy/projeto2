@@ -32,7 +32,7 @@ export default function Pacientes() {
                                 <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Duração:</b> {paciente.duration} semanas</p>
                                 <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Descrição(se houver):</b> {paciente.description}</p>
                                 <p className="mt-1 truncate text-xs leading-5 text-gray-500"><b>Tipo de tratamento:</b> {paciente.treatment}</p><br></br>
-                                <button className="flex items-center w-25 p-3 text-white rounded-lg dark:text-blue bg-slate-900 dark:hover:bg-gray-700 group">
+                                <button className="flex items-center w-25 p-3 text-white rounded-lg dark:text-blue bg-slate-900 hover:bg-violet-400	 group">
                                 <Link to={`/editaPaciente/${paciente.patient_id}`}>Editar</Link>
                                 </button>
                             </div>
